@@ -126,8 +126,8 @@ export class TinymceEditorComponent  implements OnInit, OnChanges {
         .then(response => response.json())
         .then(data => {
           console.log('Відповідь сервера:', data);
-          if (data.id>0) {
-            elPage!.textContent = String(data.id);
+          if (data[0].id>0) {
+            elPage!.textContent = String(data[0].id);
             editor.notificationManager.open({
               text: 'Збережено!',
               type: 'success',
