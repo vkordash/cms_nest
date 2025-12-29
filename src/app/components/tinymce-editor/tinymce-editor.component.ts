@@ -61,8 +61,9 @@ export class TinymceEditorComponent  implements OnInit, OnChanges {
         tooltip: 'Вставити вкладення',
         onAction: () => {
           const el = document.getElementById('CurrentPageIdMenu')?.textContent;
-          const token = localStorage.getItem('token'); 
-          const _f = fetch(`${this.configService.apiBaseUrl}/editor/submenu/?id_menu=`+ el,{
+          const token = localStorage.getItem('token');
+          const serv = this.siteService.getUrlServer();
+          const _f = fetch(`${serv}/editor/submenu/?id_menu=`+ el,{
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -108,8 +109,9 @@ export class TinymceEditorComponent  implements OnInit, OnChanges {
           const content = editor.getContent(); // Получаем HTML-контент редактора
 
           const token = localStorage.getItem('token'); 
+          const serv = this.siteService.getUrlServer();
         // Отправляем контент на сервер через POST-запрос
-        fetch(`${this.configService.apiBaseUrl}/editor/save`, {
+        fetch(`${serv}/editor/save`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -193,7 +195,8 @@ export class TinymceEditorComponent  implements OnInit, OnChanges {
         formData.append('pageTp', elPageTp?.textContent ?? '');
 
         const token = localStorage.getItem('token'); 
-        fetch(`${this.configService.apiBaseUrl}/editor/uploadEditor/`, {
+        const serv = this.siteService.getUrlServer();
+        fetch(`${serv}/editor/uploadEditor/`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`            
@@ -271,8 +274,9 @@ export class TinymceEditorComponent  implements OnInit, OnChanges {
       const token = localStorage.getItem('token');
       
       try {
+        const serv = this.siteService.getUrlServer();
         const response = await fetch(
-          `${this.configService.apiBaseUrl}/editor/uploadsEditor/`,
+          `${serv}/editor/uploadsEditor/`,
           {
             method: 'POST',
             headers: {

@@ -24,6 +24,9 @@ export class SiteService {
       constructor(private http: HttpClient, private config: AppConfigService) {
       }
 
+      getUrlServer () : String {
+        return this.url_nest;
+      }
 /*******************************            Menu  */      
 
 
