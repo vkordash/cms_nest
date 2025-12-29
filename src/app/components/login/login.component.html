@@ -1,0 +1,22 @@
+<p-toast position="top-center"></p-toast>
+            <p-dialog  header="Вхід" [(visible)]="display" [modal]="true" [style]="{width: 'auto'}" [draggable]="false" [resizable]="false" [closable]="false">
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col">
+                        <label for="login">Логін</label>
+                        <input id="login" type="text" [(ngModel)]="login" pInputText required > 
+                    </div>
+                    <div class="p-field p-col">
+                        <label for="lastname1">Пароль</label>
+                        <p-password id="lastname1" [(ngModel)]="passwd"  [toggleMask]="true"  [feedback]="false" required ></p-password> 
+                        <!-- p-password id="lastname1" [(ngModel)]="passwd" [toggleMask]="true" required ></p-password> 
+                        <input id="lastname1" type="password" [(ngModel)]="passwd" pInputText  required --> 
+                    </div>
+                    <div class="p-field p-col">
+                        <label for="database">База данних</label>
+                        <input id="database" type="text" [(ngModel)]="database" pInputText disabled >                       
+                    </div>
+                </div>
+                <ng-template pTemplate="footer">
+                  <p-button  icon="pi pi-check" (click)="send()" label="Ok" class="p-button-text"></p-button>
+                </ng-template>
+            </p-dialog>

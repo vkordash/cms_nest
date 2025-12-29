@@ -1,0 +1,10 @@
+<h2>{{ Menu.name }}</h2>
+<p>tabs-component works!</p>
+<p-tabView>
+    <p-tabPanel *ngFor="let item of SubMenu" header="{{ item.name }}">
+        <ul>
+            <li *ngFor="let sub_item of item.children" header="">{{ sub_item.name }}</li>
+        </ul>        
+    </p-tabPanel>
+    
+</p-tabView>

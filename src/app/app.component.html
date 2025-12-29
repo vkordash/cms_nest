@@ -1,0 +1,63 @@
+
+<div *ngIf="isLogged"  class="container">  
+  <header class="header flex bg-gray-200 justify-content-between p-1 m-1 align-items-center w-100">
+    <div class="p-2">
+      {{org_name}}
+    </div>
+    <div>
+      {{user_name}}
+    </div>
+    <div class="flex">
+      <div class="p-2">
+        <p-button 
+          class="p-2"
+          icon="pi pi-user-edit" 
+          (click)="prefer_user();"  
+          title="Налаштування користувача"> 
+        </p-button>                 
+      </div>
+      <app-logout *ngIf="isLogged" (isLoggedForm)="LoginSuccess($event)"></app-logout> 
+    </div>
+  </header>
+  <main class="tree-box">
+    <app-tree *ngIf="isLogged"></app-tree>    
+  </main>
+  <aside class="sidebar">
+    <div class="flex align-content-between justify-content-between">
+      <div  class="flex">
+        <div class="p-2">
+            <input type="text" pInputText  />
+            <p-button 
+                class="p-2"
+                icon="pi pi-search" 
+                label="Пошук"> 
+            </p-button>         
+        </div>
+        <div class="p-2">
+            <p-button 
+                class="p-2"
+                icon="pi pi-external-link"
+                title="Перейти на сторінку"> 
+            </p-button>            
+        </div>
+      </div>
+      <div class="flex">
+        <div class="p-2">
+          <p-button 
+              class="p-2"
+              icon="pi pi-cog" 
+              (click)="prefer_user();"  
+              title="Налаштування користувача"> 
+          </p-button>                 
+        </div>            
+      </div>              
+    </div>    
+    <router-outlet></router-outlet>   
+  </aside>
+  <footer class="footer">
+    <p>Website Footer </p>
+  </footer>
+</div> 
+<app-login *ngIf="!isLogged" [database]="db" (isLoggedForm)="LoginSuccess($event)"></app-login>   
+
+<app-preference-user (closeDialog)="_Dialog($event)" [id_org]="id_org" [id_user]="id_user" [is_showDialog]="preference_show"></app-preference-user>  

@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "primeng/resources/themes/lara-light-blue/theme.css"
+@import "primeng/resources/primeng.css"
+@import "primeicons/primeicons.css"
+@import 'primeflex/primeflex.scss'
+
+
+$bg-header: #f4f4f4
+$bg-tree-box: #fff
+$bg-sidebar: #FFFFFF
+$bg-footer: #f4f4f4
+
+.header 
+    grid-area: header
+    background-color: $bg-header
+    padding: 5px  
+
+.container
+    display: grid
+    grid-template-areas: "header header" "tree-box sidebar" "footer footer"
+    grid-template-columns: 1fr 2fr
+    grid-template-rows: auto 1fr auto
+    min-height: 100vh
+
+.tree-box
+    grid-area: tree-box
+    background-color: $bg-tree-box
+    padding: 20px
+    max-height: 90vh
+    overflow-y: scroll
+
+.sidebar
+    grid-area: sidebar
+    background-color: $bg-sidebar
+    padding: 20px
+
+.footer 
+    grid-area: footer
+    background-color: $bg-footer
+    padding: 20px
+    text-align: center
+
+
+

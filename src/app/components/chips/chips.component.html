@@ -1,0 +1,5 @@
+<p-chips [(ngModel)]="Chips"
+              label="Ключові слова"
+              [max]=5
+              placeholder="Ключові слова не більше 5" (onRemove)="chipDelete($event,chips_id,component_id)" (onAdd)="chipAdd($event,chips_id, component_id)">
+            </p-chips>

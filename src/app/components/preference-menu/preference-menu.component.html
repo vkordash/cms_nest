@@ -1,0 +1,126 @@
+<p-dialog header="Налаштування Меню" 
+[(visible)]="is_showDialog" [modal]="true" 
+[draggable]="true" [resizable]="true" [closable]="false"
+(onShow)="onShow()" 
+[style]="{width: '50vw'}"  
+[baseZIndex]="10000"> 
+
+<p-tabView>
+    <p-tabPanel header="Титульне фото">
+        <div>
+        <div class="field grid">
+            <label for="MenuPn" class="col-12 mb-2 md:col-2 md:mb-0">Порядковий номер</label>
+            <div class="col-12 md:col-10">
+                <input id="MenuPn" pInputText placeholder="Порядковий номер" type="number" min="0" max="999" [(ngModel)]="Menu.pn" (change)="changeMenu(Menu.pn, 'pn')"/>
+            </div>
+        </div>
+
+        <div class="field grid">
+            <label for="MenuName" class="col-12 mb-2 md:col-2 md:mb-0">Назва пункту меню</label>
+            <div class="col-12 md:col-10">
+                <input id="MenuName" type="text" pInputText placeholder="Назва пункту меню ....." [(ngModel)]="Menu.name" size="48" required="true" (change)="changeMenu(Menu.name, 'name')"  />    
+            </div>
+        </div>
+            <div  class="flex align-items-center gap-3 mb-3">
+                <label for="Pn-Menu" class="font-semibold w-20rem">Тип сторінки</label>      
+                <p-dropdown 
+                    [options]="Components"  
+                    [(ngModel)]="Menu.id_component"  
+                    optionLabel="name" 
+                    optionValue="id" 
+                    (onChange)="changeMenu(Menu.id_component, 'id_component')" >
+                </p-dropdown>       
+            </div>
+            <div  class="flex align-items-center gap-3 mb-3">
+                <label for="Hide-Menu" class="font-semibold w-20rem">Активність пункту меню</label>
+                <p-checkbox 
+                    id="Hide-Menu"
+                    [binary]="true" 
+                    name="activ"                   
+                    [(ngModel)]="Menu.activ" 
+                    (onChange)="changeMenu(Menu.activ, 'activ')" >
+                </p-checkbox>                
+            </div>
+            <div  class="flex align-items-center gap-3 mb-3">
+                <label for="Show_name_Menu" class="font-semibold w-20rem">Показувати назву пункту меню</label>
+                <p-checkbox 
+                    id="Show_name_Menu"
+                    [binary]="true" 
+                    name="show_name"                   
+                    [(ngModel)]="Menu.show_name" 
+                    (onChange)="changeMenu(Menu.show_name, 'show_name')" >
+                </p-checkbox>                
+            </div>
+            <div  class="flex align-items-center gap-3 mb-3">
+                <label for="Show_dt-Menu" class="font-semibold w-20rem">Дата і час на сторінці</label>
+                <p-checkbox 
+                    id="show_dt"
+                    [binary]="true" 
+                    name="show_dt"                   
+                    [(ngModel)]="Menu.show_dt"             
+                    (onChange)="changeMenu(Menu.show_dt, 'show_dt')" >
+                </p-checkbox>                  
+            </div>
+            <div  class="flex align-items-center gap-3 mb-3">
+            <label for="Icon-Menu" class="font-semibold w-20rem">Забраження пункту меню</label>
+                <p-checkbox 
+                    id="show_icon"
+                    [binary]="true" 
+                    name="show_icon"                   
+                    [(ngModel)]="Menu.show_icon"             
+                    (onChange)="changeMenu(Menu.show_icon, 'show_icon')" >
+                </p-checkbox>  
+                
+                <div *ngIf="Menu.icon; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                    <div class="page-title flex align-items-center justify-content-center m-2">
+                        <img *ngIf="Menu.icon" src="{{Menu.icon}}" width="80px" alt="Иконка" class="m-2">
+                        <p-button icon="pi pi-trash" 
+                        (click)="deleteIcon();"  >
+                        </p-button>
+                    </div>            
+                </ng-template>
+
+                <ng-template #elseBlock>
+                    <div class="page-title flex align-items-center justify-content-center m-2">
+                        <app-single-upload-file (reload)="_Reload()" [id]="current_menu_id" [id_component]="0"></app-single-upload-file> 
+                    </div>
+                </ng-template>
+
+            </div>   
+        </div>
+        <div class="field grid">
+            <label for="MenuRouterLink" class="col-12 mb-2 md:col-2 md:mb-0">Посилання</label>
+            <div class="col-12 md:col-10">
+                <input id="MenuRouterLink" type="text" pInputText placeholder="Посилання ....." [(ngModel)]="Menu.routerlink" size="48" required="true" (change)="changeMenu(Menu.routerlink, 'routerlink')"  />    
+            </div>
+        </div>
+        <div  class="flex align-items-center gap-3 mb-3">
+            <label for="new_window" class="font-semibold w-20rem">Відкривати посилання у новому вікні</label>
+            <p-checkbox 
+                id="new_window"
+                [binary]="true" 
+                name="new_window"                   
+                [(ngModel)]="Menu.new_window"             
+                (onChange)="changeMenu(Menu.new_window, 'new_window')" >
+            </p-checkbox>            
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Інфо">
+        <div>
+            <div>PageId {{Menu_id}}</div>
+            <div>Створено: {{Menu.create_user_name}} {{Menu.create_date | date:'dd-MM-yyyy HH:mm'}}</div>
+            <div>Останні зміни: {{Menu.last_user_name}} {{Menu.last_date | date:'dd-MM-yyyy HH:mm'}}</div>
+        </div>
+    </p-tabPanel>
+</p-tabView>
+
+   
+
+<ng-template pTemplate="footer"> 
+    <p-button icon="pi pi-times" 
+        (click)="onCancel();"  
+        label="Завершити"> 
+    </p-button> 
+</ng-template> 
+</p-dialog>

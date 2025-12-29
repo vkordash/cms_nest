@@ -1,0 +1,18 @@
+<!-- <ckeditor [editor]="Editor" data = "PageContent" ></ckeditor> -->
+<!--<ckeditor [(ngModel)]="model.editorData" [editor]="Editor"></ckeditor>-->
+
+<div style="display: none;">
+    <form id="uploadsEditor" method="post" enctype="multipart/form-data">
+        <input type="file" id="FileUpload1"  multiple style="display: none" />
+        <input type="file" id="fileUploadEditor" name="file_upload" multiple style="display: none" />
+        <input type="hidden" name="EditorId" id="EditorId" value="0">
+    </form>
+</div>
+
+<div style="display: none;">
+    <div id='CurrentPageId'>{{Page_id}}</div>
+    <div id='CurrentPageId'>{{Page_tp}}</div>
+    <div id='CurrentPageIdMenu'>{{Page_id_menu}}</div>
+</div>
+<!--<ckeditor [editor]="Editor"></ckeditor> -->
+<ckeditor #myEditor [(ngModel)]="Page.text" [editor]="Editor" [config]="Config"  ></ckeditor> 

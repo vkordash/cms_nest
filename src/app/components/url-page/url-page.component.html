@@ -1,0 +1,59 @@
+<h3>Налаштування посилань</h3>
+<div class="field grid">
+    <label for="Menu-pn" class="col-12 mb-2 md:col-2 md:mb-0">Порядковий номер</label>
+    <div class="col-12 md:col-10">
+        <input id="Menu-pn" type="number" min="0" max="99" title = "Порядковий номер" pInputText placeholder="Порядковий номер" [(ngModel)]="Item.pn" (change)="changeMenu(Item.id,Item.pn,'pn')" />
+    </div>
+</div>
+
+<div class="field grid">
+    <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0">Назва пункту меню</label>
+    <div class="col-12 md:col-10">
+        <input type="text" pInputText placeholder="Назва пункту меню ....." [(ngModel)]="Item.name" size="48" required="true" (change)="changeMenu(Item.id,Item.name,'name')" />    
+    </div>
+</div>
+<div class="field grid">
+    <label for="lastname4" class="col-12 mb-2 md:col-2 md:mb-0">Адреса посилання</label>
+    <div class="col-12 md:col-10">
+        <input id="routerlink_6" type="text" pInputText placeholder="Адреса посилання ....." [(ngModel)]="Item.routerlink" size="48" required="true" (change)="changeMenu(Item.id, Item.routerlink,'routerlink')" />
+    </div>
+</div>
+<!-- <div class="field grid">
+    <label for="lastname4" class="col-12 mb-2 md:col-2 md:mb-0">Іконка</label>
+    <div class="col-12 md:col-10">
+        <input id="routerlink_6" type="text" pInputText placeholder="Іконка пункту" [(ngModel)]="Item.icon" (ngModelChange)="handleChangeData($event)" />
+        <p-fileUpload chooseLabel="Завантажити" chooseIcon="pi pi-upload" method="post" url="http://192.168.77.253:30021/uploads" name="filedata" [maxFileSize]="1000000"  (onUpload)="onUpload($event)" ></p-fileUpload>
+    </div>
+</div> -->
+
+
+<div class="field grid">
+    <label for="new_window" class="col-12 mb-2 md:col-2 md:mb-0">Відкривати поислання у новому вікні</label>
+    <div class="col-12 md:col-10">       
+    <p-checkbox 
+        id="new_window"
+        [binary]="true" 
+        name="new_window"                   
+        [(ngModel)]="Item.new_window"             
+        (onChange)="changeMenu(Item.id, Item.new_window,'new_window')" >
+    </p-checkbox>   
+              
+    </div>
+</div>
+  
+<!-- (onChange)="changeMenu(Item.id, Item.new_window,'new_window')"-->
+<!--
+    <button pButton  
+        type="button" 
+        label="Зберегти" 
+        class="p-button-raised p-button-text" 
+        (click)="Save($event)" > 
+    </button>  -->
+     
+    <!--<button pButton  
+        type="button" 
+        label="Перейти за посиланням" 
+        class="p-button-raised p-button-text"
+        (click)="RedirectUrl($event)" >
+    </button>  -->
+    

@@ -1,0 +1,9 @@
+<h2>{{ Menu.name }}</h2>
+
+<p-accordion> 
+    <p-accordionTab *ngFor="let item of SubMenu" header="{{ item.name }}"> 
+        <ul>
+            <li *ngFor="let sub_item of item.children" >{{ sub_item.name }}</li>
+        </ul>    
+    </p-accordionTab>    
+</p-accordion>

@@ -1,0 +1,71 @@
+<h3>{{Menu?.name}}</h3>
+<div class="grid w-full m-2 p-2">
+  <div class="flex align-items-center justify-content-center ">
+      <!--<p-button icon="pi pi-plus"  title="Добавити" (onClick)="addItem()"></p-button>  -->
+      <app-single-upload-file (reload)="__Reload(id)" [id]="id" [id_component]="8"></app-single-upload-file>            
+  </div>
+  <div class="flex align-items-center justify-content-center ml-5">
+      <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="getListPhotos()"></p-button>
+  </div>
+  <div class="flex align-items-center gap-5 justify-content-center ml-auto" >
+      Всього записів: {{totalRecords}}
+  </div>
+</div>
+<div class="card"> 
+    <p-dataView
+      #dv 
+      [value]="ListPhotos" 
+      [paginator]="true" 
+      [rows]="10" 
+      filterBy="name"
+      layout="grid"
+      [lazy]="true" 
+      (onLazyLoad)="onLazyLoad($event)"
+      [totalRecords]="totalRecords" 
+      > 
+      <ng-template let-Photo pTemplate="gridItem"> 
+        <div class="p-col-12 mb-6 p-3 listitem w-full "> 
+          <div class="flex flex-row flex-wrap tools-listitem">
+            <!--<div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="activ"                   
+                  [(ngModel)]="Photo.activ"  
+                  label='Активна'
+                  (onChange)="changePage(Photo.id_page, Page.activ, 'activ')" > 
+              </p-checkbox>                                                 
+            </div> -->
+            <div>{{Photo.id_page}}</div>          
+            <div class="page-title flex align-items-center justify-content-center m-2">
+              <p-button icon="pi pi-cog"  (onClick)="pref_page(Photo.id_page)"></p-button>             
+            </div>
+            <div class="page-title flex align-items-center justify-content-center m-2">
+              <app-single-upload-file (reload)="_Reload(Photo.id_page)" [id]="Photo.id_page" [id_component]="8"></app-single-upload-file>    
+            </div>
+          </div>
+           <div>
+              <textarea class="page-alt w-full "
+                rows="2"
+                pInputTextarea 
+                [(ngModel)]="Photo.alt"
+                (change)="changePage(Photo.id_page, Photo.alt, 'alt')">
+              </textarea>                  
+            </div> 
+            <div>
+                <textarea class="page-title w-full "
+                  rows="2"
+                  pInputTextarea 
+                  [(ngModel)]="Photo.title"
+                  (change)="changePage(Photo.id_page, Photo.title, 'title')">
+                </textarea>                  
+              </div>                          
+            <div  (click)="openPage($event, Photo.id_page)">
+              <div class="product-grid-item-content"> 
+                <img src="{{Photo.src}}" class="title-img">                
+              </div>
+            </div>                      
+        </div>        
+      </ng-template> 
+    </p-dataView> 
+  </div>
+

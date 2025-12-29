@@ -1,0 +1,429 @@
+
+<p-dialog header="Налаштування користувача" 
+[(visible)]="is_showDialog" [modal]="true" 
+[draggable]="true" [resizable]="true" 
+(onShow)="onShow()" 
+(onHide)="onHide()"
+[style]="{height: '60vh'}"
+[baseZIndex]="10000"> 
+<p-tabView>
+    <p-tabPanel header="Загальні">
+        <h3>Загальні налаштування системи</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Показувати скриті пункти меню</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сховати "Банера"</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сховати "Відеоконтент"</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сховати "Фотогалерею"</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сховати "Мега меню"</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сховати "Різне"</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сховати "Праве меню"</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сховати "Футер"</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+            </div>           
+            
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="Меню">
+        <h3>Параметри пункту меню при створенні</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                 <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Тип сторінки </label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Активність пункту меню</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Показувати назву пункту меню</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Дата і  час на сторінці </label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Іконка пункту меню</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                </div>  
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Відкривати посилання в новому вікні</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                </div>                                          
+            </div>       
+            
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="Сторінки">
+        <h3>Параметри при створенні сторінки</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Довжина видимого тексту</label>
+                    <input type="text" pInputText  />                                   
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Сторінка активна</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Показувати дану</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">До списку RSS</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Соціальні мережі</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">ТОП</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                       
+            </div>       
+            
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="Фото">
+        <h3>Параметри при створенні фотогалереї</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Показувати скриті пункти меню</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                                        
+                </div>                                         
+            </div>       
+            
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="Відео">
+        <h3>Параметри при створенні відеосторінки</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Показувати скриті пункти меню</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>
+                                        
+                </div>                                         
+            </div>       
+            
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="Редактор">
+         <h3>Налаштування редактора по замовчуванню</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                <div class="flex align-items-center mb-1">
+                    <label for="HiddenTree" class="w-20rem mr-2">Показати панель інструментів</label>
+                    <p-checkbox 
+                        id="HiddenTree"
+                        [binary]="true" 
+                        name="HiddenTree">
+                    </p-checkbox>                                        
+                </div>                                         
+            </div>       
+            
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="СЕО">
+        <h3>Параметри СЕО за замовчуванням</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                <div class="flex align-items-center mb-1">
+                    <label for="fname" class="w-20rem mr-2">SEO_title</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє ім'я"
+                        formControlName="fname" 
+                        class="flex-1"
+                        id="fname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['fname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('fname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>                                        
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="fname" class="w-20rem mr-2">SEO_description</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє ім'я"
+                        formControlName="fname" 
+                        class="flex-1"
+                        id="fname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['fname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('fname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>                                        
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="fname" class="w-20rem mr-2">SEO_keywords</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє ім'я"
+                        formControlName="fname" 
+                        class="flex-1"
+                        id="fname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['fname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('fname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>                                        
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="fname" class="w-20rem mr-2">SEO_robots</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє ім'я"
+                        formControlName="fname" 
+                        class="flex-1"
+                        id="fname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['fname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('fname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>                                        
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="fname" class="w-20rem mr-2">SEO_canonical</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє ім'я"
+                        formControlName="fname" 
+                        class="flex-1"
+                        id="fname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['fname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('fname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>                                        
+                </div> 
+                <div class="flex align-items-center mb-1">
+                    <label for="fname" class="w-20rem mr-2">opengraph</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє ім'я"
+                        formControlName="fname" 
+                        class="flex-1"
+                        id="fname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['fname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('fname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>                                        
+                </div>                 
+            </div>                   
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="Користувач">
+        <h3>Налаштування користувача</h3>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid p-2" style="max-width:600px; margin: auto;">
+                <div class="flex align-items-center mb-1">
+                    <label for="coname" class="w-20rem mr-2">Прізвище:</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє прізвище"
+                        formControlName="coname" 
+                        class="flex-1"
+                        id="coname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['coname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('coname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>            
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="fname" class="w-20rem mr-2">Ім'я:</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє ім'я"
+                        formControlName="fname" 
+                        class="flex-1"
+                        id="fname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['fname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('fname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>            
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="lname" class="w-20rem mr-2">По батькові:</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть своє прізвище"
+                        formControlName="lname" 
+                        class="flex-1"
+                        id="lname"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['lname'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('lname')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>            
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="post" class="w-20rem mr-2">Посада:</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть свою посаду"
+                        formControlName="post" 
+                        class="flex-1"
+                        id="post"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['post'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('post')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>            
+                </div>
+                <div class="flex align-items-center mb-1">
+                    <label for="email" class="w-20rem mr-2">Елктронна пошта:</label>
+                    <input 
+                        type="text" 
+                        pInputText 
+                        placeholder="Введіть свою електронну пошту"
+                        formControlName="email" 
+                        class="flex-1"
+                        id="email"
+                        [ngClass]="{'ng-ivalid ng-dirty' : submitted  && f['email'].errors}" 
+                    />
+                    <small class="p-error block" *ngIf="submitted && userForm.get('email')?.invalid ">
+                        Прізвище обовязкове! Мінімальна довжина 20 символів!
+                    </small>            
+                </div>                                                        
+            </div>                  
+        </form> 
+    </p-tabPanel>
+</p-tabView>    
+
+    <ng-template pTemplate="footer">
+        <p-button
+                label="Зберегти"
+                styleClass="p-button-success">
+            </p-button>
+    </ng-template>
+
+       
+</p-dialog>

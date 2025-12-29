@@ -1,0 +1,15 @@
+<p-toast></p-toast>
+<p-fileUpload
+    mode="basic"
+    label=" "
+    chooseIcon="pi pi-upload"
+    name="file"
+    [url]=uploadUrl
+    accept="image/*"
+    (onBeforeUpload)="onBeforeUpload($event, uploader)"
+    (onSelect)="onFileSelect($event)"
+    (onSend) = "onSend ($event)"
+    (onUpload)="onUpload($event)"
+    #uploader
+    [auto]="true"
+  ></p-fileUpload>

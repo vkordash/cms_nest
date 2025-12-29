@@ -1,0 +1,20 @@
+<div class="tools_box">
+  <button *ngIf="showButtonBack"pButton  
+    type="button" 
+    label="Назад" 
+    class="p-button-raised p-button-text" 
+    (click)="BackToList()" > 
+  </button> 
+</div>  
+<!--<app-chips [component_id]="1" [chips_id]="id"> </app-chips>  -->
+<div class="editor_box" >
+  
+  <!--<app-ckeditor [Page_id]="id" [Page_tp]="tp" [Page_id_menu]="id_menu"></app-ckeditor>-->
+
+  <!-- <app-tinymce-editor [Page_id]="id" [Page_tp]="tp" [Page_id_menu]="id_menu" content="editorContent" ></app-tinymce-editor>-->
+  <app-tinymce-editor [Page_id]="id" [Page_tp]="tp" [Page_id_menu]="id_menu" content="editorContent" ></app-tinymce-editor>
+
+</div>
+
+<!-- <div class="message_box">message_box</div>-->  
+

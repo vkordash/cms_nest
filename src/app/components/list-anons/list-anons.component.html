@@ -1,0 +1,143 @@
+<h3>{{Menu?.name}}</h3>
+<div class="grid w-full m-2 p-2">
+  <div class="flex align-items-center justify-content-center ">
+      <p-button icon="pi pi-plus"  title="Добавити" (onClick)="addItem()"></p-button>       
+  </div>
+  <div class="flex align-items-center justify-content-center ml-5">
+      <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="getListPage()"></p-button>
+  </div>
+  <div class="flex align-items-center gap-5 justify-content-center ml-auto" >
+      Всього записів: {{totalRecords}}
+  </div>
+</div>
+<div class="card"> 
+    <p-dataView
+    #dv 
+    [value]="ListPages" 
+    [paginator]="true" 
+    [rows]="10" 
+    filterBy="name"
+    layout="grid"
+    [lazy]="true" 
+    (onLazyLoad)="onLazyLoad($event)"
+    [totalRecords]="totalRecords"> 
+      <ng-template let-Page pTemplate="gridItem"> 
+        <div class="p-col-12 mb-6 p-3 listitem"> 
+          <div class="flex flex-row flex-wrap tools-listitem">
+            <div class="page-date flex align-items-center justify-content-center "> 
+              <p-calendar [showTime]="true" 
+              [(ngModel)]="Page.date"
+              dateFormat="dd-mm-yy"
+              (onSelect)="changePage(Page.id, Page.date, 'date')"> </p-calendar>                   
+            </div>
+            <div class="page-title flex align-items-center justify-content-center m-2">                   
+              <div><input type="text" pInputText title="Довжина видимого тексту" [(ngModel)]="Page.v_len" type="number" min="0" max="1999" (change)="changePage(Page.id, Page.v_len, 'v_len')"/></div>
+            </div> 
+            <div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="activ"                   
+                  [(ngModel)]="Page.activ"  
+                  label='Активна'
+                  (onChange)="changePage(Page.id, Page.activ, 'activ')" > 
+              </p-checkbox>                                                 
+            </div>
+
+            <div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="show_dt"                   
+                  [(ngModel)]="Page.show_dt"
+                  label='Показувати дату'
+                  (onChange)="changePage(Page.id, Page.show_dt, 'show_dt')" > 
+              </p-checkbox>                     
+            </div>
+            <div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="rss"                   
+                  [(ngModel)]="Page.rss"  
+                  label='RSS'
+                  (onChange)="changePage(Page.id, Page.rss, 'rss')"  >
+              </p-checkbox>                     
+            </div>
+
+            <div class="page-title flex align-items-center justify-content-center m-2">
+              <p-checkbox 
+                  [binary]="true" 
+                  name="soc_nets"                   
+                  [(ngModel)]="Page.soc_nets"  
+                  label='Соціальні мережі' 
+                  (onChange)="changePage(Page.id, Page.soc_nets, 'soc_nets')" >
+              </p-checkbox>                   
+            </div>
+
+            <div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="top"                   
+                  [(ngModel)]="Page.top" 
+                  label='ТОП' 
+                  (onChange)="changePage(Page.id, Page.top, 'top')" >
+              </p-checkbox>                                    
+            </div> 
+            <div>{{Page.id}}</div>          
+            <div class="page-title flex align-items-center justify-content-center m-2">
+              <p-button icon="pi pi-cog"  (onClick)="pref_page(Page.id)"></p-button>             
+            </div>
+            <div class="page-title flex align-items-center justify-content-center m-2">
+              <app-single-upload-file (reload)="_Reload()" [Page_id]="Page.id"></app-single-upload-file>    
+
+
+
+              <!--<p-button icon="pi pi-image"  (onClick)="upload(Page.id)"></p-button> -->
+              <!--<p-fileUpload 
+                mode="basic" 
+                name="filedata[]"
+                chooseIcon="pi pi-upload"
+                url="http://192.168.77.253:30021/uploadTitPhoto"
+                accept="image/*" 
+                [auto]="true" 
+                (onUpload) = "onUpload($event)">                
+              </p-fileUpload> -->
+<!--(onBeforeUpload) = "onBeforeUpload($event)"
+                (onSend) = "onSend($event)"-->
+            </div>
+          </div>
+          <div>
+            <!--<p-chips [(ngModel)]="Page.tags"
+              [max]=5 
+              label="Ключові слова"
+              placeholder="Maximum 5 items" (onRemove)="chipRemove($event,Page.id)" (onAdd)="chipAdd($event,Page.id)">
+            </p-chips> -->            
+            <app-chips [component_id]="2" [chips_id]="Page.id"> </app-chips>
+            
+           </div>
+           <div>
+              <textarea class="page-head  w-full"
+                rows="2"
+                pInputTextarea 
+                [(ngModel)]="Page.head"
+                (change)="changePage(Page.id, Page.head, 'head')">
+              </textarea>                  
+            </div>                          
+            <div  (click)="openPage($event, Page.id)">
+              <div class="product-grid-item-content"> 
+                <img *ngIf="Page.photo"  src="{{Page.photo}}" class="title-img">
+                {{Page.text}}
+              </div>
+            </div>                      
+        </div>        
+      </ng-template> 
+    </p-dataView> 
+  </div>
+
+<app-preference-listpages (clickDialog)="_Dialog()" [Page_id]="current_Page_id" [is_showDialog]="preference_show"></app-preference-listpages>    
+
+
+<!--<div style="display: none;">
+  <form id="uploadsTitPhoto" method="post" enctype="multipart/form-data">      
+      <input type="file" id="fileUploadTitPhoto" name="file_upload" style="display: none" (change)="selectFile($event)" />      
+  </form>
+</div>-->
+

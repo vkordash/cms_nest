@@ -1,0 +1,67 @@
+<form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
+    <p-card header="Реєстрація користувача" [style]="{width: '360px'}">
+        <div class="field">
+            <label for="fullName">прізвище, ім'я, по батькові</label>
+            <input 
+                type="text"
+                pInputText
+                formControlName="fullName"
+                class="w-full"
+                name="fullName"
+                placeholder="Ввведіть прізвище, ім'я, по батькові"/>
+                <small *ngif="fullName.invalid && (email.dirty || fullName.touched)" class="block p-error">
+                    <div *ngif="fullName.errors?.['required']">Поле обовязкове до заповнення</div>
+                    <div *ngif="fullName.errors?.['pattern']">Введіть коректні дані</div>                    
+                </small>
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input 
+                type="text"
+                pInputText
+                formControlName="email"
+                class="w-full"
+                name="email"
+                placeholder="Ввведіть електронну пошту"/>
+                <small *ngif="email.invalid && (email.dirty || email.touched)" class="block p-error">
+                    <div *ngif="email.errors?.['required']">Email is requred</div>
+                    <div *ngif="email.errors?.['email']">Email should be valid</div>
+                </small>
+        </div>
+        <div class="field">
+            <label for="password">Пароль</label>
+            <input 
+                type="password"
+                pInputText
+                formControlName="password"
+                class="w-full"
+                name="password"
+                placeholder="Ввведіть пароль"/>
+                <small *ngif="password.invalid && (password.dirty || password.touched)" class="block p-error">
+                    <div *ngif="password.errors?.['required']">Password is requred</div>
+                </small>
+        </div>
+        <div class="field">
+            <label for="confirmPassword">Пароль повторно</label>
+            <input 
+                type="password"
+                pInputText
+                formControlName="confirmPassword"
+                class="w-full"
+                name="confirmPassword"
+                placeholder="Ввведіть пароль повторно"/>
+                <small *ngif="confirmPassword.invalid && (password.dirty || confirmPassword.touched)" class="block p-error">
+                    <div *ngif="confirmPassword.errors?.['required']">Password is requred</div>
+                </small>
+        </div>
+        <p-button 
+            label="Register"
+            styleClass="w-full"
+            [disabled] = "registerForm.invalid"
+            type="submit" >
+        </p-button>
+        <div class="mt-2">
+            Already a member? <a routerLink="/login">Login</a>
+        </div>
+    </p-card>
+</form>

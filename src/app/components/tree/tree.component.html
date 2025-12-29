@@ -1,0 +1,37 @@
+<!--<div  class="flex align-items-center gap-3 mb-3">
+    <label for="new_window" class="font-semibold w-20rem">Показувати не активні</label>
+    <p-checkbox 
+        id="show_hide"
+        [binary]="true" 
+        name="show_hide"                   
+        [(ngModel)]="show_hide"             
+        (onChange)="changeTreeActiv()" >
+    </p-checkbox>            
+</div> -->
+<p-tree [value]="data" 
+          selectionMode="single"
+          [(selection)]="selectedNode"
+          [contextMenu]="toolsMenuId" 
+          (onNodeSelect)="onNodeSelect($event)"
+          (onNodeExpand)="nodeExpand($event)"
+          (onNodeCollapse)="nodeCollapse($event)" 
+          [draggableNodes]="true"  
+          [droppableNodes]="true"  
+          draggableScope="self" 
+          droppableScope="self"
+          (onNodeDrop)="onDrop($event)"
+          [filter]="true" 
+          filterPlaceholder="Назва пункту меню" 
+          (onNodeContextMenuSelect) = "onNodeContextMenuSelect($event)" > 
+</p-tree> 
+
+
+<p-contextMenu #toolsMenuId [model]="toolsMenu"  (onShow)="handleShow($event)" 
+(onHide)="handleHide($event)" ></p-contextMenu>
+
+
+<p-toast position="top-left"></p-toast>
+
+<app-preference-menu (clickDialog)="_Dialog()" [Menu_id]="current_menu_id" [is_showDialog]="preference_show"></app-preference-menu>
+<app-preference-access (clickDialogAccess)="_DialogAccess()" [Menu_id]="current_menu_id" [is_showDialogAccess]="preference_showAccess"></app-preference-access>
+  

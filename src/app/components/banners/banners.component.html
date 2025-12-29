@@ -1,0 +1,11 @@
+<p-dataView [value]="ListPages" layout="list">
+    <ng-template pTemplate="header">List of Cars</ng-template>
+    <ng-template let-Baner pTemplate="listItem">
+        <div class="col-12 border-1">
+            {{Baner.id}}
+            {{Baner.head}}
+            <div [innerHTML]="Baner.text | safehtml"></div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">Choose from the list.</ng-template>
+</p-dataView>
