@@ -17,8 +17,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  login   : string = "admin";
-  passwd  : string = "111111";
+  login   : string = "";
+  passwd  : string = "";
   test_database: string = '';
   display : boolean = true;
 
