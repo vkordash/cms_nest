@@ -127,7 +127,7 @@
             <div class="flex justify-content-between align-items-center p-3">
               <!--<div  class="w-40" (click)="openPage($event, Page.id)"> -->
               <div class="product-grid-item-content w-40"> 
-                <img *ngIf="Page.photo_src"  src="{{Page.photo_src}}" class="title-img">                  
+                <img *ngIf="Page.photo_src"  src="{{Page.photo_src}}" class="video-title-img">                  
               </div>
               <!-- </div>-->
               <div *ngIf="Page.link_frame" class="product-grid-item-content" [innerHTML]="Page.link_frame | safehtml"></div>                      
