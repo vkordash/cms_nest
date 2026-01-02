@@ -11,7 +11,8 @@ import { AppConfigService } from '../services/app-config.service';
 export class SingleUploadService {
 
      private url = this.config.apiBaseUrl;        //  url базы данных (без путей)   
-      private url_nest = "http://192.168.77.253:20202"   
+      //private url_nest = "http://192.168.77.253:20202" ;
+      private url_nest = "http://10.8.0.1:30303"    
       private name_token = 'token';
       private token : any = null;
 
@@ -36,7 +37,7 @@ export class SingleUploadService {
           .set ('file',file);
         
         const url = this.url_nest+this.getSubPath(id_component);
-        console.log ('Урл для після завантаження фото '+url);
+        console.log ('Урл для завантаження фото '+url);
         return this.http.get<any>(url, { params: params });         
         
       }

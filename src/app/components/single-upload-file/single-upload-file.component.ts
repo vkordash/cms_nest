@@ -37,8 +37,8 @@ export class SingleUploadFileComponent implements OnInit {
   url_photo: string = this.server_url+"/titphoto/uploadMenuIcon";*/
 
   //uploadUrl : string = this.server_url+"/titphoto/uploadTitPhoto";
-  uploadUrl : string = "http://192.168.77.253:20202/file/upload/";
-
+  //uploadUrl : string = "http://192.168.77.253:20202/file/upload/
+  uploadUrl : string = "http://10.8.0.1/file/upload/";
   status: "initial" | "uploading" | "success" | "fail" = "initial"; // Variable to store file status
   file: File | null = null; // Variable to store file
  // current_Page_id : number = 0;  
