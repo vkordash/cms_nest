@@ -255,7 +255,7 @@ export class SiteService {
         return x;         
       }
 /*******************************            TitPhoto  */      
-      /*getTitPhoto(id : number): Observable<any> {
+      getTitPhoto(id : number): Observable<any> {
       //  let x = this.http.get<any[]>(this.url+"/titphoto/get?id="+id);
         let x = this.http.get<any>(this.url_nest+"/titul-photo/?id="+id);
         return x;
@@ -265,7 +265,7 @@ export class SiteService {
         let x = this.http.get<any>(this.url_nest+"/titul-photo/upd?id="+photo.id+"&title="+photo.title+"&alt="+photo.alt+"&height="+photo.height+"&width="+photo.width);
         return x;         
       }
-
+/*
       delTitPhoto(id:number):Observable<any>{
         let x = this.http.get<any>(this.url_nest+"/titul-photo/del?id="+id);
         return x;         
