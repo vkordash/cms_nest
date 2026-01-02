@@ -105,7 +105,7 @@
                     (change)="changePage(Page.id, Page.head, 'head')">
                 </textarea>                  
               </div>
-              <div class="flex-grow-1">
+            <!--  <div class="flex-grow-1">
                 <label>Опис відео</label>
                 <textarea class="page-text  w-full"
                     rows="4"
@@ -113,7 +113,7 @@
                     [(ngModel)]="Page.text"
                     (change)="changePage(Page.id, Page.text, 'text')">
                 </textarea>                  
-              </div>
+              </div> -->
             </div> 
             <div>
               <label>HTML код фрейма</label>
@@ -132,7 +132,7 @@
               <!-- </div>-->
               <div *ngIf="Page.link_frame" class="product-grid-item-content" [innerHTML]="Page.link_frame | safehtml"></div>                      
             </div>            
-            <div>{{Page.text}}</div>                                  
+            <div (click)="openPage($event, Page.id)">{{Page.text}}</div>                                  
         </div>        
       </ng-template> 
     </p-dataView> 
