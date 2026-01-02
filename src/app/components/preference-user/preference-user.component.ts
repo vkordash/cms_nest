@@ -19,6 +19,24 @@ interface IPerson{
   email:string;  
 }
 
+interface IUserPreference{   
+  Tree_ShowAll?: boolean;
+  Tree_ShowTyp7?: boolean;
+  Page_Vlen?: number;
+  Page_Top?: boolean;
+  Page_SocNet?: boolean;
+  Page_RSS?: boolean;
+  Editor_toolbox?: boolean;
+  SEO_title?:string;
+  SEO_description?:string;
+  SEO_keywords?:string; 
+  SEO_robots?:string;
+  SEO_canonical?:string;
+  opengraph?:string;
+}
+
+
+
 @Component({
   selector: 'app-preference-user',
   templateUrl: './preference-user.component.html',
@@ -49,6 +67,22 @@ export class PreferenceUserComponent implements OnInit {
     email:''   
   }
 
+  UserPreference: IUserPreference = { 
+    Tree_ShowAll: true,
+    Tree_ShowTyp7: true,
+    Page_Vlen: 0,
+    Page_Top: false,
+    Page_SocNet: false,
+    Page_RSS: false,
+    Editor_toolbox:false,
+    SEO_title:'',
+    SEO_description:'',
+    SEO_keywords:'',
+    SEO_robots:'',
+    SEO_canonical:'',
+    opengraph:''
+  }
+
   submitted = false;
 
   constructor(private fb: FormBuilder, private siteService : SiteService) { }
@@ -68,7 +102,9 @@ export class PreferenceUserComponent implements OnInit {
   onShow() {
     console.log(this.Menu_id);
     this.getUser();
-    this.getOrg();
+    this.getPerson();
+    //this.getOrg();
+    this.getPreferUser();
   }
 
   onHide(){
@@ -78,23 +114,23 @@ export class PreferenceUserComponent implements OnInit {
   getUser(){
     let s = this.siteService.getUser(this.id_user).subscribe(data => {             
       this.User = data;  
-      this.getPerson(this.User.id_pers);
+      this.getPerson();
       s.unsubscribe();  
     }); 
   }
 
-  getPerson(id_pers:number){
-    let s = this.siteService.getEmployee(id_pers).subscribe(data => {             
+  getPerson(){
+    let s = this.siteService.getEmployee().subscribe(data => {             
       this.Person = data;
-      this.userForm = this.fb.group({
+      /*this.userForm = this.fb.group({
         coname: [data.coname, [Validators.required, Validators.minLength(2)]], 
         fname: [data.fname, [Validators.required, Validators.minLength(2)]], 
         lname: [data.lname, [Validators.required, Validators.minLength(2)]], 
         post: [data.post, [Validators.required, Validators.minLength(10)]], 
         email: [data.email, [Validators.required, Validators.email]],
         id_pers: [data.id]     
-      });
-      s.unsubscribe();  
+      });*/
+      s.unsubscribe(); 
     }); 
   }
 
@@ -105,7 +141,39 @@ export class PreferenceUserComponent implements OnInit {
     }); */
   }
 
-  get f(): { [key: string]: AbstractControl } {
+  getPreferUser(){
+    let s = this.siteService.getPreferUser().subscribe(data => { 
+      console.log(data);           
+      this.UserPreference = data;        
+      s.unsubscribe();  
+    }); 
+  }
+
+  changeData(val: any, name: string ){
+    console.log(name);
+    console.log(val);
+    let s = this.siteService.updatePreferUser(name,val).subscribe(data => {             
+      //this.UserPreference = data;        
+      s.unsubscribe();  
+    }); 
+  }
+
+  changeEmployee(val: any, name: string ) {
+    console.log(name);
+    console.log(val);
+    let s = this.siteService.updateEmployee(name,val).subscribe(data => {             
+      //this.UserPreference = data;        
+      s.unsubscribe();  
+    }); 
+  }
+
+  _Reload(id:number){    
+    console.log(id);
+  //  this.current_Page_id=id;
+  //  this. getTitPhoto();
+  }
+
+/*  get f(): { [key: string]: AbstractControl } {
     return this.userForm.controls;
   }
 
@@ -124,5 +192,9 @@ export class PreferenceUserComponent implements OnInit {
     let s = this.siteService.updateUser(this.userForm.value).subscribe(data => {                       
       s.unsubscribe();         
     }); 
+  }*/
+
+  onCancel(){
+
   }
 }

@@ -41,13 +41,18 @@ export class ListPhotosComponent implements OnInit {
   
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {      
-      this.id = params['id'];
-      this.tp = params['typ'];
+      if (params['id'] != this.id) {
+        this.getMenuItem();     
+        this.totalRecords==0;    
+        this.id = params['id'];
+        this.tp = params['typ'];
+      } 
+      
       if (params['offset'])
         this.offset = params['offset']*1;
       if (params['search'])
         this.search = params['search'];
-      this.getMenuItem();     
+          
     });
   }
 

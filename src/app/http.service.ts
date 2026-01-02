@@ -12,7 +12,7 @@ import { AppConfigService } from './services/app-config.service';
 
 export class SiteService {
       private url = this.config.apiBaseUrl;        //  url базы данных (без путей)   
-      //private url_nest = "http://192.168.77.253:20202"   
+      private url_nest_local = "http://192.168.77.253:20202"   
       private url_nest = "http://10.8.0.1:30303"  
       private name_token = 'token';
       private token : any = null;
@@ -134,7 +134,7 @@ export class SiteService {
       }
 
       updatePage(id_page:number,name:string,val:any):Observable<any>{
-        let x = this.http.get<any>(this.url+"/page/update?id_page="+id_page+"&name="+name+"&val="+val);
+        let x = this.http.get<any>(this.url_nest+"/page/update?id_page="+id_page+"&name="+name+"&val="+val);
         return x;         
       }
 
@@ -175,11 +175,11 @@ export class SiteService {
       }
 
       addItemPage(id_menu:number):Observable<any>{
-        let x = this.http.get<any>(this.url+"/page/add?id_menu="+id_menu);
+        let x = this.http.get<any>(this.url_nest+"/page/add?id_menu="+id_menu);
         return x;         
       }
 
-      getCountPages(id_menu : number): Observable<number> {
+      getCountPages(id_menu : number): Observable<any> {
         //return this.http.get<number>(this.url+"/listpages/cnt?id_menu="+id_menu);
         return this.http.get<number>(this.url_nest+"/page/cnt?id_menu="+id_menu);
       }
@@ -426,12 +426,30 @@ export class SiteService {
           return this.http.get<number>(this.url_nest+"/user/?id="+id);           
         }  
 
-        getEmployee(id:number):Observable<any>{               
-          return this.http.get<number>(this.url+"/employee/?id="+id);           
+        getEmployee():Observable<any>{               
+          return this.http.get<number>(this.url+"/employee/");           
+        } 
+
+        updateEmployee(name:string,val:any):Observable<any>{               
+          return this.http.get<number>(this.url+"/employee/upd/?name="+name+"&val="+val);           
         } 
 
         getPreferOrg():Observable<any>{               
-          return this.http.get<number>(this.url+"/pref/?group=org");           
+          return this.http.get<number>(this.url_nest_local+"/prefer/org");           
+          //return this.http.get<number>(this.url_nest_local+"/pref/?group=org");           
+        }
+
+        updatePreferOrg(name:string,val:any):Observable<any>{               
+          return this.http.get<number>(this.url_nest_local+"/prefer/org_upd/?name="+name+"&val="+val);      
+        }
+
+        getPreferUser():Observable<any>{               
+          return this.http.get<any>(this.url_nest_local+"/prefer/user");           
+        }
+
+        updatePreferUser(name:string,val:any):Observable<any>{
+          let x = this.http.get<any>(this.url_nest_local+"/prefer/user_upd/?name="+name+"&val="+val);
+          return x;         
         }
 
         checkDataBase(db:string):Observable<any>{               

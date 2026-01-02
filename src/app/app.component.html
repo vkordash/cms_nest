@@ -30,14 +30,16 @@
             <p-button 
                 class="p-2"
                 icon="pi pi-search" 
-                label="Пошук"> 
+                label="Пошук"
+                [disabled]="true"> 
             </p-button>         
         </div>
         <div class="p-2">
             <p-button 
                 class="p-2"
                 icon="pi pi-external-link"
-                title="Перейти на сторінку"> 
+                title="Перейти на сторінку"
+                [disabled]="true"> 
             </p-button>            
         </div>
       </div>
@@ -47,7 +49,8 @@
               class="p-2"
               icon="pi pi-cog" 
               (click)="prefer_user();"  
-              title="Налаштування користувача"> 
+              title="Налаштування користувача"
+              [disabled]="true"> 
           </p-button>                 
         </div>            
       </div>              

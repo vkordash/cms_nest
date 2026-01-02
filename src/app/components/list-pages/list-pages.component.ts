@@ -40,20 +40,25 @@ export class ListPagesComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {      
-      this.id = params['id'];
-      this.tp = params['typ'];
+    this.route.queryParams.subscribe(params => {  
+      if (params['id'] != this.id) {
+        this.getMenuItem();     
+        this.totalRecords==0;    
+        this.id = params['id'];
+        this.tp = params['typ'];
+      } 
+      
       if (params['offset'])
         this.offset = params['offset']*1;
       if (params['search'])
         this.search = params['search'];
-      this.getMenuItem();     
+      
     });
   }
 
   getCountPages (){
-    let s = this.siteService.getCountPages(this.id).subscribe(cnt => { 
-      this.totalRecords = cnt;  
+    let s = this.siteService.getCountPages(this.id).subscribe(data => { 
+      this.totalRecords = data.cnt;  
       this.getListPage();        
       s.unsubscribe(); 
     }); 

@@ -1,0 +1,160 @@
+<p-dialog header="Налаштування сторінки" 
+[(visible)]="is_showDialog" [modal]="true" 
+[draggable]="true" [resizable]="true" [closable]="false"
+[style]="{width: '50vw'}"  
+[baseZIndex]="10000"> 
+
+
+
+<p-tabView>
+   <p-tabPanel header="Титульне фото">
+        <div class="flex flex-column flex-wrap info-col p-3">
+            <fieldset>
+                <div *ngIf="Page.photo_src">
+                    <p-button icon="pi pi-trash" 
+                        (click)="onDelete();"
+                        label="Вилучити" 
+                        styleClass="p-button-text"> 
+                    </p-button>
+                </div>
+                <div *ngIf="!Page.photo_src">
+                    <app-single-upload-file (reload)="_Reload(Page.id)" [id]="Page.id" [id_component]="2"></app-single-upload-file>                
+                </div>                
+                <legend>Титульне фото</legend>
+                <div  *ngIf="Page.photo_src" class="flex align-content-center m-3">
+                    <img src="{{Page.photo_src}}" width="100%">
+                </div>
+                <div  class="flex align-items-center gap-3 mb-3">
+                    <label for="photo_src" class="font-semibold w-10rem">photo_src</label>
+                    <input pInputText id="photo_src" [(ngModel)]="Page.photo_src" [disabled]="true" >        
+                </div> 
+                <div  class="flex align-items-center gap-3 mb-3">
+                    <label for="photo_alt" class="font-semibold w-10rem">photo_alt</label>
+                    <input pInputText id="photo_alt" [(ngModel)]="Page.photo_alt" (change)="changePage(Page.id, Page.photo_alt, 'photo_alt')" >        
+                </div> 
+                <div  class="flex align-items-center gap-3 mb-3">
+                    <label for="photo_title" class="font-semibold w-10rem">photo_title</label>
+                    <input pInputText id="photo_title" [(ngModel)]="Page.photo_title" (change)="changePage(Page.id, Page.photo_title, 'photo_title')" >        
+                </div> 
+            </fieldset>
+        </div>    
+<!--         <div class="flex flex-row gap-2 bg-gray-100">
+            <div class="flex flex-column flex-wrap info-col p-3">
+                <div  class="flex align-items-center justify-content-center">
+                    <img src="{{Photo.src}}" class="p-1" title="{{Photo.src}}">
+                </div>
+            </div>
+            <div class="flex flex-column flex-wrap tools-col  p-3 "> 
+                <div  class="flex align-items-center justify-content-center">            
+                    <p-checkbox 
+                        [binary]="true" 
+                        name="rss"                   
+                        label='Зберегти пропорції'
+                        >
+                    </p-checkbox>                     
+                </div>
+            
+                <div  class="flex align-items-center gap-3 mb-3">
+                    <label for="TitPhoto-width" class="font-semibold w-6rem">Ширина</label>
+                    <p-inputNumber id="TitPhoto-width" [(ngModel)]="Photo.width" ></p-inputNumber>        
+                </div>
+                <div  class="flex align-items-center gap-3 mb-3">
+                    <label for="TitPhoto-height" class="font-semibold w-6rem">Висота</label>
+                    <p-inputNumber id="TitPhoto-height" [(ngModel)]="Photo.height" ></p-inputNumber>        
+                </div> 
+                <div  class="flex align-items-center gap-3 mb-3">
+                    <label for="TitPhoto-title" class="font-semibold w-10rem">Альтернативний текст</label>
+                    <input pInputText id="TitPhoto-title" [(ngModel)]="Photo.title" >        
+                </div>
+                <div  class="flex align-items-center gap-3 mb-3">
+                    <label for="TitPhoto-alt" class="font-semibold w-10rem">Титульний текст</label>
+                    <input pInputText id="TitPhoto-alt" [(ngModel)]="Photo.alt" >        
+                </div>           
+                <div  class="flex align-items-center justify-content-center">
+                    <p-button icon="pi pi-trash" 
+                        (click)="onDelete();"
+                        label="Вилучити" 
+                        styleClass="p-button-text"> 
+                    </p-button>
+                </div>
+            </div>            
+        </div> -->
+    </p-tabPanel>
+    <p-tabPanel header="СЕО параметри">
+        <div class="flex">
+            <div class="flex flex-column flex-wrap info-col p-3">
+                <fieldset>
+                        <legend>Мета данні</legend>
+                        <div  class="flex align-items-center gap-3 mb-3">
+                                <label for="seo_title" class="font-semibold w-10rem">seo_title</label>
+                                <input pInputText id="seo_title" [(ngModel)]="Page.seo_title"  (change)="changePage(Page.id, Page.seo_title, 'seo_title')">        
+                            </div>
+                            <div  class="flex align-items-center gap-3 mb-3">
+                                <label for="seo_description" class="font-semibold w-10rem">seo_description</label>
+                                <input pInputText id="seo_description" [(ngModel)]="Page.seo_description"  (change)="changePage(Page.id, Page.seo_description, 'seo_description')">        
+                            </div>   
+                            <div  class="flex align-items-center gap-3 mb-3">
+                                <label for="seo_keywords" class="font-semibold w-10rem">seo_keywords</label>
+                                <input pInputText id="seo_keywords" [(ngModel)]="Page.seo_keywords"  (change)="changePage(Page.id, Page.seo_keywords, 'seo_keywords')">        
+                            </div>    
+                            <div  class="flex align-items-center gap-3 mb-3">
+                                <label for="seo_robots" class="font-semibold w-10rem">seo_robots</label>
+                                <input pInputText id="seo_robots" [(ngModel)]="Page.seo_robots"  (change)="changePage(Page.id, Page.seo_robots, 'seo_robots')">        
+                            </div> 
+                            <div  class="flex align-items-center gap-3 mb-3">
+                                <label for="seo_canonical" class="font-semibold w-10rem">seo_canonical</label>
+                                <input pInputText id="seo_canonical" [(ngModel)]="Page.seo_canonical"  (change)="changePage(Page.id, Page.seo_canonical, 'seo_canonical')">        
+                            </div> 
+                            <div  class="flex align-items-center gap-3 mb-3">
+                                <label for="seo_opengraph" class="font-semibold w-10rem">seo_opengraph</label>
+                                <input pInputText id="seo_opengraph" [(ngModel)]="Page.seo_opengraph"  (change)="changePage(Page.id, Page.seo_opengraph, 'seo_opengraph')">        
+                            </div>
+                    </fieldset>
+            </div>
+            <!--<div class="flex flex-column flex-wrap info-col p-3">
+                <fieldset>
+                    <legend>Титульне фото</legend>
+                    <div class="flex align-content-center m-3">
+                        <img src="https://mena.cg.gov.ua/{{Page.photo_src}}" width="100%">
+                    </div>
+                    <div  class="flex align-items-center gap-3 mb-3">
+                        <label for="photo_src" class="font-semibold w-10rem">photo_src</label>
+                        <input pInputText id="photo_src" [(ngModel)]="Page.photo_src" >        
+                    </div> 
+                    <div  class="flex align-items-center gap-3 mb-3">
+                        <label for="photo_alt" class="font-semibold w-10rem">photo_alt</label>
+                        <input pInputText id="photo_alt" [(ngModel)]="Page.photo_alt" >        
+                    </div> 
+                    <div  class="flex align-items-center gap-3 mb-3">
+                        <label for="photo_title" class="font-semibold w-10rem">photo_title</label>
+                        <input pInputText id="photo_title" [(ngModel)]="Page.photo_title" >        
+                    </div> 
+                </fieldset>
+            </div> -->
+        </div>        
+    </p-tabPanel>
+    <p-tabPanel header="Інфо">
+        <div>
+            <div>PageId {{Page_id}}</div>
+            <div>Створено: {{Page.create_user_name}} {{Page.create_date | date:'dd-MM-yyyy HH:mm'}}</div>
+            <div>Останні зміни: {{Page.last_user_name}} {{Page.last_date | date:'dd-MM-yyyy HH:mm'}}</div>
+        </div>
+    </p-tabPanel>
+</p-tabView>
+
+
+
+
+<ng-template pTemplate="footer"> 
+    <!--<p-button icon="pi pi-check" 
+        (click)="onSave();"
+        label="Зберегти" 
+        styleClass="p-button-text"> 
+    </p-button> -->
+
+    <p-button icon="pi pi-times" 
+        (click)="onCancel();"  
+        label="Завершити"> 
+    </p-button> 
+</ng-template> 
+</p-dialog>

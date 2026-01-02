@@ -73,6 +73,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { PreferenceUserComponent } from './components/preference-user/preference-user.component';
 
 import { AppConfigService } from './services/app-config.service';
+import { PreferencePageComponent } from './components/preference-page/preference-page.component';
 
 
 export function initializeApp(appConfig: AppConfigService) {
@@ -117,7 +118,8 @@ export function initializeApp(appConfig: AppConfigService) {
     AccordionComponentComponent,
     SearchComponent,
     AccessComponent,
-    PreferenceUserComponent    
+    PreferenceUserComponent,
+    PreferencePageComponent    
   ],
   imports: [
     BrowserModule,
