@@ -10,21 +10,21 @@
    <p-tabPanel header="Титульне фото">
         <div class="flex flex-column flex-wrap info-col p-3">
             <fieldset>
-                <div *ngIf="Page.photo_src">
+                <div *ngIf="Page.photo_src" class="flex align-content-between justify-content-between mb-1">
                     <p-button icon="pi pi-trash" 
                         (click)="onDelete();"
                         label="Вилучити" 
                         styleClass="p-button-text"> 
                     </p-button>                    
                 </div>
-                <div *ngIf="!Page.photo_src">
-                    <app-single-upload-file (reload)="_Reload(Page.id)" [id]="Page.id" [id_component]="2"></app-single-upload-file>                                    
-                </div>
-                <p-button icon="pi pi-refresh" 
+                <div *ngIf="!Page.photo_src" class="flex align-content-between justify-content-between mb-1">
+                    <app-single-upload-file (reload)="_Reload(Page.id)" [id]="Page.id" [id_component]="2"></app-single-upload-file>
+                    <p-button icon="pi pi-refresh" 
                         (click)="_Reload(Page_id);"
                         label="Оновити" 
                         styleClass="p-button-text"> 
-                    </p-button>                
+                    </p-button>                                   
+                </div>                          
                 <legend>Титульне фото</legend>
                 <div  *ngIf="Page.photo_src" class="flex align-content-center m-3">
                     <img src="{{Page.photo_src}}" width="100%">
