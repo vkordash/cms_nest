@@ -123,7 +123,8 @@ export class PreferencePageComponent implements OnInit {
     
   
     onDelete(){
-    let s = this.siteService.delTitPhoto(this.Page_id).subscribe(photo => {             
+      console.log('Delete');
+      let s = this.siteService.delTitPhoto(this.Page_id).subscribe(photo => {             
           this.getPrefPage();     
           this.isChangePhoto=false;
           s.unsubscribe(); 
