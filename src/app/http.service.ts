@@ -431,11 +431,11 @@ export class SiteService {
         }  
 
         getEmployee():Observable<any>{               
-          return this.http.get<number>(this.url+"/employee/");           
+          return this.http.get<number>(this.url_nest+"/employee/");           
         } 
 
         updateEmployee(name:string,val:any):Observable<any>{               
-          return this.http.get<number>(this.url+"/employee/upd/?name="+name+"&val="+val);           
+          return this.http.get<number>(this.url_nest+"/employee/upd/?name="+name+"&val="+val);           
         } 
 
         getPreferOrg():Observable<any>{               
