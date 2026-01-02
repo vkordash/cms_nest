@@ -16,6 +16,11 @@
                         label="Вилучити" 
                         styleClass="p-button-text"> 
                     </p-button>
+                    <p-button icon="pi pi-refresh" 
+                        (click)="_Reload(Page_id);"
+                        label="Оновити" 
+                        styleClass="p-button-text"> 
+                    </p-button>
                 </div>
                 <div *ngIf="!Page.photo_src">
                     <app-single-upload-file (reload)="_Reload(Page.id)" [id]="Page.id" [id_component]="2"></app-single-upload-file>                
