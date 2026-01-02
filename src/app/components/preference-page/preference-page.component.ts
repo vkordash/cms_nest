@@ -95,6 +95,7 @@ export class PreferencePageComponent implements OnInit {
 
     _Reload(id:number){    
       console.log(id);
+      this.getPrefPage();
     //  this.current_Page_id=id;
     //  this. getTitPhoto();
     }
@@ -122,11 +123,11 @@ export class PreferencePageComponent implements OnInit {
     
   
     onDelete(){
-  /*  let s = this.siteService.delTitPhoto(this.Page_id).subscribe(photo => {             
-          this.Photo = photo;        
+    let s = this.siteService.delTitPhoto(this.Page_id).subscribe(photo => {             
+          this.getPrefPage();     
           this.isChangePhoto=false;
           s.unsubscribe(); 
-      }); */
+      }); 
     }
 
 }
