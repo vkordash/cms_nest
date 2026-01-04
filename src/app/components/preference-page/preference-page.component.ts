@@ -4,7 +4,7 @@ import { ITitPhoto, IPage } from '../../type';
 
 interface IPhotoGallery {
     id : number,
-    photo_gallery_name : string
+    photo_gallery_name : string | null
 }
 
 @Component({
@@ -40,7 +40,7 @@ export class PreferencePageComponent implements OnInit {
       }
     ];
 
-    selectedPhotoCollection:IPhotoGallery = {id : 0, photo_gallery_name : ''};
+    selectedPhotoCollection:IPhotoGallery = {id : 0, photo_gallery_name : null};
 
     Page : any = {
       id:0,
@@ -59,6 +59,7 @@ export class PreferencePageComponent implements OnInit {
       last_date:'',
       sl_main:0,
       sl_news:0,
+      photo_gallery_name:'',
       sl_pages:0,
       sl_banners:0,
       new_window:0,
@@ -89,6 +90,8 @@ export class PreferencePageComponent implements OnInit {
         let s = this.siteService.getPrefPage(this.Page_id).subscribe(Data => {  
           this.Page = Data; 
           this.Page.id = this.Page_id;
+          this.selectedPhotoCollection.id=Data.id_gallery;
+          this.selectedPhotoCollection.photo_gallery_name = Data.photo_gallery_name;
           console.log(Data);       
         //  this.isChangePage=false;
         //  this.getTitPhoto();
