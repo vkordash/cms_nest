@@ -16,6 +16,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginGuard } from './guards/login.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { ListVideosComponent } from './components/list-videos/list-videos.component';
+import { SliderNewsComponent } from './components/slider-news/slider-news.component';
+import { SliderMainComponent } from './components/slider-main/slider-main.component';
 import { SliderBannersComponent } from './components/slider-banners/slider-banners.component';
 import { SliderPagesComponent } from './components/slider-pages/slider-pages.component';
 import { AccordionComponentComponent } from './components/accordion-component/accordion-component.component';
@@ -41,6 +43,8 @@ const routes: Routes = [
   { path: 'list-photos', component: ListPhotosComponent,canActivate: [AuthGuard] },
   { path: 'list-anons', component: ListAnonsComponent,canActivate: [AuthGuard] },
   { path: 'banners', component: BannersComponent,canActivate: [AuthGuard] },
+  { path: 'slider-news', component: SliderNewsComponent,canActivate: [AuthGuard] },
+  { path: 'slider-main', component: SliderMainComponent,canActivate: [AuthGuard] },
   { path: 'slider-pages', component: SliderPagesComponent,canActivate: [AuthGuard] },
   { path: 'slider-banners', component: SliderBannersComponent,canActivate: [AuthGuard] },
   { path: 'tabs', component: TabsComponentComponent,canActivate: [AuthGuard] },

@@ -74,6 +74,8 @@ import { PreferenceUserComponent } from './components/preference-user/preference
 
 import { AppConfigService } from './services/app-config.service';
 import { PreferencePageComponent } from './components/preference-page/preference-page.component';
+import { SliderMainComponent } from './components/slider-main/slider-main.component';
+import { SliderNewsComponent } from './components/slider-news/slider-news.component';
 
 
 export function initializeApp(appConfig: AppConfigService) {
@@ -119,7 +121,9 @@ export function initializeApp(appConfig: AppConfigService) {
     SearchComponent,
     AccessComponent,
     PreferenceUserComponent,
-    PreferencePageComponent    
+    PreferencePageComponent,
+    SliderMainComponent,
+    SliderNewsComponent    
   ],
   imports: [
     BrowserModule,
