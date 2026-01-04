@@ -91,7 +91,11 @@ export class PreferencePageComponent implements OnInit {
           this.Page = Data; 
           this.Page.id = this.Page_id;
           this.selectedPhotoCollection.id=Data.id_gallery;
-          this.selectedPhotoCollection.photo_gallery_name = Data.photo_gallery_name;
+          if (Data.id_gallery==0) {
+            this.selectedPhotoCollection.photo_gallery_name = '';
+          }
+          else 
+            this.selectedPhotoCollection.photo_gallery_name = Data.photo_gallery_name;
           //console.log(Data);       
         //  this.isChangePage=false;
         //  this.getTitPhoto();
