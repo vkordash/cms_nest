@@ -21,9 +21,21 @@ export class PreferencePageComponent implements OnInit {
       "width": 0,
       "height": 0    
     };*/
+     
+    PhotoCollections:any=[
+      {
+        id:27071,
+        name:'Наше місто'
+      },{
+        id:37830,
+        name:'Молодіжна рада'
+      },{
+        id:37021,
+        name:'Вертеп'
+      }
+    ];
 
-    countries:any=[];
-    selectedCountry:any={};
+    selectedPhotoCollection:any={};
 
     Page : any = {
       id:0,
