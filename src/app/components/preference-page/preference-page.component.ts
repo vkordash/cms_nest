@@ -40,7 +40,7 @@ export class PreferencePageComponent implements OnInit {
       }
     ];
 
-    selectedPhotoCollection:IPhotoGallery = {id : 0, photo_gallery_name : null};
+    selectedPhotoCollection:IPhotoGallery = {id : 0, photo_gallery_name : ''};
 
     Page : any = {
       id:0,
@@ -92,7 +92,7 @@ export class PreferencePageComponent implements OnInit {
           this.Page.id = this.Page_id;
           this.selectedPhotoCollection.id=Data.id_gallery;
           this.selectedPhotoCollection.photo_gallery_name = Data.photo_gallery_name;
-          console.log(Data);       
+          //console.log(Data);       
         //  this.isChangePage=false;
         //  this.getTitPhoto();
           s.unsubscribe(); 
