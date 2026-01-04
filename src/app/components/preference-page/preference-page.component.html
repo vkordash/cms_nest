@@ -71,17 +71,7 @@
                         [showClear]="true"
                         dataKey="id"
                         (onChange)="onChangePhotoGallery($event)"
-                        placeholder="Виберіть фотогалерею">
-                            <ng-template pTemplate="selectedItem" let-selectedOption>
-                                <div class="flex align-items-center gap-2">
-                                    <div>{{ selectedGallery.photo_gallery_name }}</div>
-                                </div>
-                            </ng-template>
-                            <ng-template let-PhotoCollections pTemplate="item">
-                                <div class="flex align-items-center gap-2">
-                                    <div>{{ PhotoCollections.photo_gallery_name }}</div>
-                                </div>
-                            </ng-template>
+                        placeholder="Виберіть фотогалерею">                            
                     </p-dropdown> 
             </fieldset>           
         </div>    
