@@ -76,10 +76,37 @@
             <div class="page-title flex align-items-center justify-content-center m-2"> 
               <p-checkbox 
                   [binary]="true" 
-                  name="top"                   
-                  [(ngModel)]="Page.top" 
-                  label='ТОП' 
-                  (onChange)="changePage(Page.id, Page.top, 'top')" >
+                  name="sl_main"                   
+                  [(ngModel)]="Page.sl_main" 
+                  label='Головний слайдер' 
+                  (onChange)="changePage(Page.id, Page.sl_main, 'sl_main')" >
+              </p-checkbox>                                    
+            </div> 
+            <div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="sl_news"                   
+                  [(ngModel)]="Page.sl_news" 
+                  label='Слайдер новин' 
+                  (onChange)="changePage(Page.id, Page.sl_news, 'sl_news')" >
+              </p-checkbox>                                    
+            </div> 
+            <div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="sl_pages"                   
+                  [(ngModel)]="Page.sl_pages" 
+                  label='Слайдер сторінок' 
+                  (onChange)="changePage(Page.id, Page.sl_pages, 'sl_pages')" >
+              </p-checkbox>                                    
+            </div> 
+            <div class="page-title flex align-items-center justify-content-center m-2"> 
+              <p-checkbox 
+                  [binary]="true" 
+                  name="sl_banners"                   
+                  [(ngModel)]="Page.sl_banners" 
+                  label='Слайдер банерів' 
+                  (onChange)="changePage(Page.id, Page.sl_banners, 'sl_banners')" >
               </p-checkbox>                                    
             </div> 
             <div>{{Page.id}}</div>          
