@@ -40,7 +40,7 @@ export class PreferencePageComponent implements OnInit {
       }
     ];
 
-    selectedPhotoCollection:IPhotoGallery = {id : 0, photo_gallery_name : ''};
+    selectedGallery:IPhotoGallery | undefined;
 
     Page : any = {
       id:0,
@@ -91,12 +91,13 @@ export class PreferencePageComponent implements OnInit {
         let s = this.siteService.getPrefPage(this.Page_id).subscribe(Data => {  
           this.Page = Data; 
           this.Page.id = this.Page_id;
-          this.selectedPhotoCollection.id=Data.id_gallery;
-          if (Data.id_gallery==0) {
+          this.selectedGallery = this.PhotoCollections.find(item => item.id === Data.id_gallery);
+         // this.selectedPhotoCollection.id=Data.id_gallery;
+          /*if (Data.id_gallery==0) {
             this.selectedPhotoCollection.photo_gallery_name = '';
           }
           else 
-            this.selectedPhotoCollection.photo_gallery_name = Data.photo_gallery_name;
+            this.selectedPhotoCollection.photo_gallery_name = Data.photo_gallery_name;*/
           //console.log(Data);       
         //  this.isChangePage=false;
         //  this.getTitPhoto();

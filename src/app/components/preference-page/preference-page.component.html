@@ -64,16 +64,17 @@
                     </div>
                     <p-dropdown 
                         [options]="PhotoCollections"
-                        [(ngModel)]="selectedPhotoCollection"
+                        [(ngModel)]="selectedGallery"
                         optionLabel="photo_gallery_name"
                         [filter]="true"
                         filterBy="photo_gallery_name" 
                         [showClear]="true"
+                        dataKey="id"
                         (onChange)="onChangePhotoGallery($event)"
                         placeholder="Виберіть фотогалерею">
                             <ng-template pTemplate="selectedItem" let-selectedOption>
                                 <div class="flex align-items-center gap-2">
-                                    <div>{{ selectedPhotoCollection.photo_gallery_name }}</div>
+                                    <div>{{ selectedGallery.photo_gallery_name }}</div>
                                 </div>
                             </ng-template>
                             <ng-template let-PhotoCollections pTemplate="item">
