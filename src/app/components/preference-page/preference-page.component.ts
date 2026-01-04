@@ -21,7 +21,10 @@ export class PreferencePageComponent implements OnInit {
       "width": 0,
       "height": 0    
     };*/
-  
+
+    countries:any=[];
+    selectedCountry:any={};
+
     Page : any = {
       id:0,
       photo_src:'',
@@ -36,7 +39,14 @@ export class PreferencePageComponent implements OnInit {
       create_user:'',
       create_date:'',
       last_user:'',
-      last_date:''
+      last_date:'',
+      sl_main:0,
+      sl_news:0,
+      sl_pages:0,
+      sl_banners:0,
+      new_window:0,
+      show_gallery:0,
+      id_gallery:0
     } ;
   
     isChangePhoto = false;

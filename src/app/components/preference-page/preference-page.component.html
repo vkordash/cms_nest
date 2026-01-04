@@ -47,6 +47,36 @@
                     <input pInputText id="photo_title" [(ngModel)]="Page.photo_title" (change)="changePage(Page.id, Page.photo_title, 'photo_title')" >        
                 </div> 
             </fieldset>
+        </div>
+        <div class="flex flex-column flex-wrap info-col p-3">
+            Добавити фотогалерею
+            <p-dropdown 
+                [options]="countries"
+                [(ngModel)]="selectedCountry"
+                optionLabel="name"
+                [filter]="true"
+                filterBy="name" 
+                [showClear]="true"
+                placeholder="Select a Country">
+                    <ng-template pTemplate="selectedItem" let-selectedOption>
+                        <div class="flex align-items-center gap-2">
+                            <img 
+                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
+                                style="width: 18px" />
+                            <div>{{ selectedOption.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <img 
+                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                [class]="'flag flag-' + country.code.toLowerCase()"
+                                style="width: 18px" />
+                            <div>{{ country.name }}</div>
+                        </div>
+                    </ng-template>
+            </p-dropdown>            
         </div>    
 <!--         <div class="flex flex-row gap-2 bg-gray-100">
             <div class="flex flex-column flex-wrap info-col p-3">
@@ -88,7 +118,50 @@
                     </p-button>
                 </div>
             </div>            
-        </div> -->
+        </div> -->       
+    </p-tabPanel>
+    <p-tabPanel header="Слайдери">        
+        <div class="flex flex-column flex-wrap info-col p-3">
+            <fieldset>
+                <legend>Налаштування включення сторінки до слайдерів</legend>
+                    <div  class="flex align-items-center gap-3 mb-3">
+                        <p-checkbox 
+                            [binary]="true" 
+                            name="sl_main"                   
+                            [(ngModel)]="Page.sl_main" 
+                            label='Головний слайдер' 
+                            (onChange)="changePage(Page.id, Page.sl_main, 'sl_main')" >
+                        </p-checkbox>                                    
+                    </div>
+                    <div  class="flex align-items-center gap-3 mb-3">
+                        <p-checkbox 
+                            [binary]="true" 
+                            name="sl_news"                   
+                            [(ngModel)]="Page.sl_news" 
+                            label='Слайдер новин' 
+                            (onChange)="changePage(Page.id, Page.sl_news, 'sl_news')" >
+                            </p-checkbox>                                    
+                    </div>
+                    <div  class="flex align-items-center gap-3 mb-3">
+                        <p-checkbox 
+                            [binary]="true" 
+                            name="sl_pages"                   
+                            [(ngModel)]="Page.sl_pages" 
+                            label='Слайдер сторінок' 
+                            (onChange)="changePage(Page.id, Page.sl_pages, 'sl_pages')" >
+                        </p-checkbox>
+                    </div>
+                    <div class="flex align-items-center gap-3 mb-3"> 
+                        <p-checkbox 
+                            [binary]="true" 
+                            name="sl_banners"                   
+                            [(ngModel)]="Page.sl_banners" 
+                            label='Слайдер банерів' 
+                            (onChange)="changePage(Page.id, Page.sl_banners, 'sl_banners')" >
+                        </p-checkbox>                                    
+                    </div> 
+            </fieldset>
+        </div>        
     </p-tabPanel>
     <p-tabPanel header="СЕО параметри">
         <div class="flex">
