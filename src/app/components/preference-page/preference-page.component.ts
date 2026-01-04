@@ -101,7 +101,7 @@ export class PreferencePageComponent implements OnInit {
    // console.log(event);
    // console.log('Dropdown value changed to:', event.value);
    // console.log('Current selected value:', this.selectedPhotoCollection); 
-    this.changePage(this.Page_id,event.value,'id_gallery')    
+    this.changePage(this.Page_id,event.value.id,'id_gallery')    
     
   }
   /*
