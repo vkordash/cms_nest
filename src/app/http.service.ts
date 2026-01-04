@@ -286,6 +286,10 @@ export class SiteService {
         let x = this.http.get<any>(this.url_nest+"/photo/add?id_menu="+id_menu);
         return x;         
     }
+    getListPhotoCollection():Observable<any>{
+        let x = this.http.get<any>(this.url_nest+"/photo/");
+        return x;         
+    }
 
 /*******************************            Photo  */
 

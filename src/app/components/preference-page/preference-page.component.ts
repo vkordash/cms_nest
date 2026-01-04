@@ -72,9 +72,18 @@ export class PreferencePageComponent implements OnInit {
     constructor(private siteService : SiteService) { }
   
     ngOnInit(): void {
+      this.getListPhotoCollection();
       this.getPrefPage();
     }
     
+    getListPhotoCollection(){
+      let s = this.siteService.getListPhotoCollection().subscribe(Data => {  
+          this.PhotoCollections = Data; 
+          console.log(Data);         
+          s.unsubscribe(); 
+      }); 
+    }
+
     getPrefPage(): void {
       if (this.Page_id!=0) {
         let s = this.siteService.getPrefPage(this.Page_id).subscribe(Data => {  
@@ -89,13 +98,11 @@ export class PreferencePageComponent implements OnInit {
     }
 
    onChangePhotoGallery(event: any): void {
-    console.log(event);
-    // event.value contains the newly selected value
-    console.log('Dropdown value changed to:', event.value);
-    // You can also access the value directly from the bound property
-    console.log('Current selected value:', this.selectedPhotoCollection); 
+   // console.log(event);
+   // console.log('Dropdown value changed to:', event.value);
+   // console.log('Current selected value:', this.selectedPhotoCollection); 
+    this.changePage(this.Page_id,event.value,'id_gallery')    
     
-    // Call other logic here, e.g., an API call
   }
   /*
     getTitPhoto(): void {
