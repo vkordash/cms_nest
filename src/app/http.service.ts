@@ -77,12 +77,12 @@ export class SiteService {
       }
 
       getTabsMenu(id : number): Observable<any> {
-        let x = this.http.get<any[]>(this.url+"/menu/getTabsMenu?id="+id);
+        let x = this.http.get<any[]>(this.url_nest+"/menu/getTabsMenu?id="+id);
         return x;
       }
 
       getAccordionMenu(id : number): Observable<any> {
-        let x = this.http.get<any[]>(this.url+"/menu/getAccordionMenu?id="+id);
+        let x = this.http.get<any[]>(this.url_nest+"/menu/getAccordionMenu?id="+id);
         return x;
       }
       
@@ -229,7 +229,7 @@ export class SiteService {
     }
 /*******************************            Banners  */
       getBanners(): Observable<any> {    
-        let x = this.http.get<any>(this.url+"/banners/");
+        let x = this.http.get<any>(this.url_nest+"/banners/");
         return x;
       }
 

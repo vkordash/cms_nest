@@ -17,6 +17,7 @@ import { LoginGuard } from './guards/login.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { ListVideosComponent } from './components/list-videos/list-videos.component';
 import { SliderBannersComponent } from './components/slider-banners/slider-banners.component';
+import { SliderPagesComponent } from './components/slider-pages/slider-pages.component';
 import { AccordionComponentComponent } from './components/accordion-component/accordion-component.component';
 import { TabsComponentComponent } from './components/tabs-component/tabs-component.component';
 import { DatabaseComponent } from './components/database/database.component';
@@ -40,7 +41,7 @@ const routes: Routes = [
   { path: 'list-photos', component: ListPhotosComponent,canActivate: [AuthGuard] },
   { path: 'list-anons', component: ListAnonsComponent,canActivate: [AuthGuard] },
   { path: 'banners', component: BannersComponent,canActivate: [AuthGuard] },
-  { path: 'slider-pages', component: SliderBannersComponent,canActivate: [AuthGuard] },
+  { path: 'slider-pages', component: SliderPagesComponent,canActivate: [AuthGuard] },
   { path: 'slider-banners', component: SliderBannersComponent,canActivate: [AuthGuard] },
   { path: 'tabs', component: TabsComponentComponent,canActivate: [AuthGuard] },
   { path: 'accordion', component: AccordionComponentComponent,canActivate: [AuthGuard] },

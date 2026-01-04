@@ -1,122 +1,106 @@
-<p>slider-pages works!</p>
-Кнопка добавити
-Кнопка оновити
-ПАГІНАЦІЯ
-Всього записів+добавити пошук
-
-
-Змінити слайд
-Ширина зображення
-Висота зображення
-Активна
-Порядковий номер
-Опис
-СТОРІНКА!
-Зовнішне посилання
-Відкривати в новому вікні
-Видалити
-
 <h3>{{Menu?.name}}</h3>
-<!--
+<div class="grid w-full m-2 p-2">
+    <div class="flex align-items-center justify-content-center ">
+        <p-button icon="pi pi-plus"  title="Добавити" (onClick)="addItem()"></p-button>       
+    </div>
+    <div class="flex align-items-center justify-content-center ml-5">
+        <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="getListPage()"></p-button>
+    </div>
+    <div class="flex align-items-center gap-5 justify-content-center ml-auto" >
+        Всього записів: {{totalRecords}}
+    </div>
+</div>
 <div class="card"> 
     <p-dataView
-      #dv 
-      [value]="ListPages" 
-      [paginator]="true" 
-      [rows]="3" 
-      filterBy="name"
-      layout="grid"> 
-      <ng-template let-Page pTemplate="gridItem"> 
-        <div class="p-col-12 mb-6 p-3 listitem"> 
-          <div class="flex flex-row flex-wrap tools-listitem">
-            <div class="page-date flex align-items-center justify-content-center "> 
-              <p-calendar [showTime]="true" 
-              [(ngModel)]="Page.date"
-              dateFormat="dd-mm-yy"
-              (onSelect)="changePage(Page.id, Page.date, 'date')"> </p-calendar>                   
+    #dv 
+    [value]="ListPages" 
+    [paginator]="true" 
+    [rows]="10" 
+    filterBy="name"
+    layout="grid"
+    [lazy]="true" 
+    (onLazyLoad)="onLazyLoad($event)"
+    [totalRecords]="totalRecords"
+    > 
+        <ng-template let-Page pTemplate="gridItem"> 
+            <div class="grid col-12 m-2 listitem">
+                <div class="grid w-full ml-4 mr-4">
+                    <div class="col-4 flex align-items-center justify-content-center">
+                        <img *ngIf="Page.photo"  src="{{Page.photo.src}}" class="title-img">                    
+                    </div>
+                    <div class="col-8">
+                        <div class="text-center p-3 border-round-sm ">
+                            <div class="flex align-items-center justify-content-end p-2">
+                                <div>{{Page.id}}</div>
+                            </div>
+                            <div class="flex align-items-center  p-2">
+                                <div>
+                                    <div>
+                                        Порядковий номер: <input type="text" pInputText [(ngModel)]="Page.pn" type="number" size="2" min="0" max="99" (change)="changePage(Page.id, Page.pn, 'pn')"/>
+                                    </div>                                     
+                                </div> 
+                                <div  class="ml-5"> 
+                                    <p-checkbox 
+                                        [binary]="true" 
+                                        name="activ"                   
+                                        [(ngModel)]="Page.activ"  
+                                        label='Активна'
+                                        (onChange)="changePage(Page.id, Page.activ, 'activ')" > 
+                                    </p-checkbox>                                                  
+                                </div>
+                                <div class="ml-5">
+                                    <app-single-upload-file (reload)="_Reload()" [id]="Page.id" [id_component]="11"></app-single-upload-file>
+                                </div>     
+                                <div class="ml-5">
+                                    <p-button icon="pi pi-cog"  (onClick)="pref_page(Page.id)"></p-button>                             
+                                   <!-- <p-button icon="pi pi-file-o"  title="Сторінка" (onClick)="pageItemSlider(Page.id)"></p-button> -->
+                                </div>
+                                <div class="ml-5">
+                                    <!--<p-button icon="pi pi-trash"  title="Оновити" (onClick)="delItemSlider(Page.id)"></p-button> -->
+                                </div>
+                            </div>
+                            <!-- <div  class="flex align-items-center p-2">
+                                <div>
+                                    Ширина зображення:  <input type="text" pInputText [(ngModel)]="Page.photo.width" type="number" size="4" min="0" max="680" (change)="changePhoto(Page.id, Page.photo.width, 'width')"/>  px                                            
+                                </div> 
+                                <div class="ml-5">
+                                    Висота зображення: <input type="text" pInputText [(ngModel)]="Page.photo.height" type="number" size="4" min="0" max="680" (change)="changePhoto(Page.id, Page.photo.height, 'height')"/> px                                             
+                                </div>
+                            </div>-->
+                            <div  class="flex align-items-center  p-2">
+                                <div >
+                                    <input type="text" pInputText placeholder="Адреса зовнішнього посилання ....." [(ngModel)]="Page.title" size="64" required="true" (change)="changePage(Page.id, Page.title, 'title')" />                                              
+                                </div>
+                                <div class="ml-5">
+                                    <p-checkbox 
+                                        [binary]="true" 
+                                        name="activ"                   
+                                        [(ngModel)]="Page.activ"  
+                                        label='Відкрти в новому вікні'
+                                        (onChange)="changePage(Page.id, Page.activ, 'activ')" > 
+                                    </p-checkbox>                
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+                <div class="grid w-full ml-4 mr-4">
+                    <div>
+                        Короткий опис
+                    </div>
+                    <div class="w-full ">
+                        <textarea class="w-full"
+                            rows="3"
+                            pInputTextarea 
+                            [(ngModel)]="Page.head"
+                            (change)="changePage(Page.id, Page.head, 'head')">
+                        </textarea> 
+                    </div>
+                </div>
             </div>
-            <div class="page-title flex align-items-center justify-content-center m-2">                   
-              <div><input type="text" pInputText [(ngModel)]="Page.v_len" type="number" min="0" max="1999" (change)="changePage(Page.id, Page.v_len, 'v_len')"/></div>
-            </div> 
-            <div class="page-title flex align-items-center justify-content-center m-2"> 
-              <p-checkbox 
-                  [binary]="true" 
-                  name="activ"                   
-                  [(ngModel)]="Page.activ"  
-                  label='Активна'
-                  (onChange)="changePage(Page.id, Page.activ, 'activ')" > 
-              </p-checkbox>                                                 
-            </div>
-
-            <div class="page-title flex align-items-center justify-content-center m-2"> 
-              <p-checkbox 
-                  [binary]="true" 
-                  name="show_dt"                   
-                  [(ngModel)]="Page.show_dt"
-                  label='Показувати дату'
-                  (onChange)="changePage(Page.id, Page.show_dt, 'show_dt')" > 
-              </p-checkbox>                     
-            </div>
-            <div class="page-title flex align-items-center justify-content-center m-2"> 
-              <p-checkbox 
-                  [binary]="true" 
-                  name="rss"                   
-                  [(ngModel)]="Page.rss"  
-                  label='RSS'
-                  (onChange)="changePage(Page.id, Page.rss, 'rss')"  >
-              </p-checkbox>                     
-            </div>
-
-            <div class="page-title flex align-items-center justify-content-center m-2">
-              <p-checkbox 
-                  [binary]="true" 
-                  name="soc_nets"                   
-                  [(ngModel)]="Page.soc_nets"  
-                  label='Соціальні мережі' 
-                  (onChange)="changePage(Page.id, Page.soc_nets, 'soc_nets')" >
-              </p-checkbox>                   
-            </div>
-
-            <div class="page-title flex align-items-center justify-content-center m-2"> 
-              <p-checkbox 
-                  [binary]="true" 
-                  name="top"                   
-                  [(ngModel)]="Page.top" 
-                  label='ТОП' 
-                  (onChange)="changePage(Page.id, Page.top, 'top')" >
-              </p-checkbox>                                    
-            </div> 
-            <div>{{Page.id}}</div>          
-            <div class="page-title flex align-items-center justify-content-center m-2">
-              <p-button icon="pi pi-cog"  (onClick)="pref_page(Page.id)"></p-button>             
-            </div>
-            <div class="page-title flex align-items-center justify-content-center m-2">
-              <app-single-upload-file (reload)="_Reload()" [Page_id]="Page.id"></app-single-upload-file>    
-
-            </div>
-          </div>
-          <div>
-            <app-chips [component_id]="2" [chips_id]="Page.id"> </app-chips>
-            
-           </div>
-           <div>
-              <textarea class="page-head"
-                rows="2"
-                pInputTextarea 
-                [(ngModel)]="Page.head"
-                (change)="changePage(Page.id, Page.head, 'head')">
-              </textarea>                  
-            </div>                          
-            <div  (click)="openPage($event, Page.id)">
-              <div class="product-grid-item-content"> 
-                <img *ngIf="Page.photo"  src="{{Page.photo}}" class="title-img">
-                {{Page.text}}
-              </div>
-            </div>                      
-        </div>        
-      </ng-template> 
+        </ng-template> 
     </p-dataView> 
-  </div>
+</div>       
 
-<app-preference-page (clickDialog)="_Dialog()" [Page_id]="current_Page_id" [is_showDialog]="preference_show"></app-preference-page>    
--->
+
+<app-preference-page (clickDialog)="_Dialog()" [Page_id]="current_Page_id" [is_showDialog]="preference_show"></app-preference-page>  
