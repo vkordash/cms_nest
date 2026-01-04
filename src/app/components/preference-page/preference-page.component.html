@@ -8,6 +8,7 @@
 
 <p-tabView>
    <p-tabPanel header="Титульне фото">
+        <div class="flex gap-2">
         <div class="flex flex-column flex-wrap info-col p-3">
             <fieldset>
                 <div *ngIf="Page.photo_src" class="flex align-content-between justify-content-between mb-1">
@@ -51,29 +52,21 @@
         <div class="flex flex-column flex-wrap info-col p-3">
             Добавити фотогалерею
             <p-dropdown 
-                [options]="countries"
-                [(ngModel)]="selectedCountry"
+                [options]="PhotoCollections"
+                [(ngModel)]="selectedPhotoCollection"
                 optionLabel="name"
                 [filter]="true"
                 filterBy="name" 
                 [showClear]="true"
-                placeholder="Select a Country">
+                placeholder="Виберіть фотогалерею">
                     <ng-template pTemplate="selectedItem" let-selectedOption>
                         <div class="flex align-items-center gap-2">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
-                                style="width: 18px" />
-                            <div>{{ selectedOption.name }}</div>
+                            <div>{{ selectedPhotoCollection.name }}</div>
                         </div>
                     </ng-template>
                     <ng-template let-country pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                [class]="'flag flag-' + country.code.toLowerCase()"
-                                style="width: 18px" />
-                            <div>{{ country.name }}</div>
+                            <div>{{ PhotoCollections.name }}</div>
                         </div>
                     </ng-template>
             </p-dropdown>            
@@ -118,7 +111,8 @@
                     </p-button>
                 </div>
             </div>            
-        </div> -->       
+        </div> -->
+        </div>       
     </p-tabPanel>
     <p-tabPanel header="Слайдери">        
         <div class="flex flex-column flex-wrap info-col p-3">
