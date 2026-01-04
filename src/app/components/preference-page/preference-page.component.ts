@@ -86,6 +86,7 @@ export class PreferencePageComponent implements OnInit {
     }
 
     getPrefPage(): void {
+      this.getListPhotoCollection();
       if (this.Page_id!=0) {
         let s = this.siteService.getPrefPage(this.Page_id).subscribe(Data => {  
           this.Page = Data; 
