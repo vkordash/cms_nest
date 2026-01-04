@@ -50,26 +50,39 @@
             </fieldset>
         </div>
         <div class="flex flex-column flex-wrap info-col p-3">
-            Добавити фотогалерею
-            <p-dropdown 
-                [options]="PhotoCollections"
-                [(ngModel)]="selectedPhotoCollection"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name" 
-                [showClear]="true"
-                placeholder="Виберіть фотогалерею">
-                    <ng-template pTemplate="selectedItem" let-selectedOption>
-                        <div class="flex align-items-center gap-2">
-                            <div>{{ selectedPhotoCollection.name }}</div>
-                        </div>
-                    </ng-template>
-                    <ng-template let-country pTemplate="item">
-                        <div class="flex align-items-center gap-2">
-                            <div>{{ PhotoCollections.name }}</div>
-                        </div>
-                    </ng-template>
-            </p-dropdown>            
+            <fieldset>
+                <legend>Добавити фотогалерею</legend>
+                    
+                    <div  class="flex align-items-center gap-3 mb-3">
+                        <p-checkbox 
+                            [binary]="true" 
+                            name="show_gallery"                   
+                            [(ngModel)]="Page.show_gallery" 
+                            label='Включити фотогалерею' 
+                            (onChange)="changePage(Page.id, Page.show_gallery, 'show_gallery')" >
+                        </p-checkbox>                                    
+                    </div>
+                    <p-dropdown 
+                        [options]="PhotoCollections"
+                        [(ngModel)]="selectedPhotoCollection"
+                        optionLabel="name"
+                        [filter]="true"
+                        filterBy="name" 
+                        [showClear]="true"
+                        (onChange)="onChangePhotoGallery($event)"
+                        placeholder="Виберіть фотогалерею">
+                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ selectedPhotoCollection.name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-PhotoCollections pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ PhotoCollections.name }}</div>
+                                </div>
+                            </ng-template>
+                    </p-dropdown> 
+            </fieldset>           
         </div>    
 <!--         <div class="flex flex-row gap-2 bg-gray-100">
             <div class="flex flex-column flex-wrap info-col p-3">

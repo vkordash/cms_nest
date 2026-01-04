@@ -2,6 +2,11 @@ import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
 import { SiteService } from '../../http.service';
 import { ITitPhoto, IPage } from '../../type';
 
+interface IPhotoGallery {
+    id : number,
+    name : string
+}
+
 @Component({
   selector: 'app-preference-page',
   templateUrl: './preference-page.component.html',
@@ -22,7 +27,7 @@ export class PreferencePageComponent implements OnInit {
       "height": 0    
     };*/
      
-    PhotoCollections:any=[
+    PhotoCollections:IPhotoGallery[]=[
       {
         id:27071,
         name:'Наше місто'
@@ -35,7 +40,7 @@ export class PreferencePageComponent implements OnInit {
       }
     ];
 
-    selectedPhotoCollection:any={};
+    selectedPhotoCollection:IPhotoGallery = {id : 0, name : ''};
 
     Page : any = {
       id:0,
@@ -82,6 +87,16 @@ export class PreferencePageComponent implements OnInit {
       }); 
       }    
     }
+
+   onChangePhotoGallery(event: any): void {
+    console.log(event);
+    // event.value contains the newly selected value
+    console.log('Dropdown value changed to:', event.value);
+    // You can also access the value directly from the bound property
+    console.log('Current selected value:', this.selectedPhotoCollection); 
+    
+    // Call other logic here, e.g., an API call
+  }
   /*
     getTitPhoto(): void {
       if (this.Page_id!=0) {
@@ -101,7 +116,7 @@ export class PreferencePageComponent implements OnInit {
       this.isChangePhoto=true;
     }
 
-     changePage(page_id:number, val:any, name:string){
+    changePage(page_id:number, val:any, name:string){
       //console.log(val);
       //console.log(page_id);
       //console.log(name);
