@@ -41,7 +41,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/cms/dist/cms/",
+              "baseHref": "/",
               "budgets": [
                 {
                   "type": "initial",
