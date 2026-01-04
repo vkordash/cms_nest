@@ -4,7 +4,7 @@ import { ITitPhoto, IPage } from '../../type';
 
 interface IPhotoGallery {
     id : number,
-    name : string
+    photo_gallery_name : string
 }
 
 @Component({
@@ -30,17 +30,17 @@ export class PreferencePageComponent implements OnInit {
     PhotoCollections:IPhotoGallery[]=[
       {
         id:27071,
-        name:'Наше місто'
+        photo_gallery_name:'Наше місто'
       },{
         id:37830,
-        name:'Молодіжна рада'
+        photo_gallery_name:'Молодіжна рада'
       },{
         id:37021,
-        name:'Вертеп'
+        photo_gallery_name:'Вертеп'
       }
     ];
 
-    selectedPhotoCollection:IPhotoGallery = {id : 0, name : ''};
+    selectedPhotoCollection:IPhotoGallery = {id : 0, photo_gallery_name : ''};
 
     Page : any = {
       id:0,
