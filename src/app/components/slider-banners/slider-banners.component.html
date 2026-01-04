@@ -52,20 +52,21 @@
                                     <app-single-upload-file (reload)="_Reload()" [id]="Page.id" [id_component]="11"></app-single-upload-file>
                                 </div>     
                                 <div class="ml-5">
+                                    <p-button icon="pi pi-cog"  (onClick)="pref_page(Page.id)"></p-button>                             
                                    <!-- <p-button icon="pi pi-file-o"  title="Сторінка" (onClick)="pageItemSlider(Page.id)"></p-button> -->
                                 </div>
                                 <div class="ml-5">
                                     <!--<p-button icon="pi pi-trash"  title="Оновити" (onClick)="delItemSlider(Page.id)"></p-button> -->
                                 </div>
                             </div>
-                            <div  class="flex align-items-center p-2">
+                            <!-- <div  class="flex align-items-center p-2">
                                 <div>
                                     Ширина зображення:  <input type="text" pInputText [(ngModel)]="Page.photo.width" type="number" size="4" min="0" max="680" (change)="changePhoto(Page.id, Page.photo.width, 'width')"/>  px                                            
                                 </div> 
                                 <div class="ml-5">
                                     Висота зображення: <input type="text" pInputText [(ngModel)]="Page.photo.height" type="number" size="4" min="0" max="680" (change)="changePhoto(Page.id, Page.photo.height, 'height')"/> px                                             
                                 </div>
-                            </div>
+                            </div>-->
                             <div  class="flex align-items-center  p-2">
                                 <div >
                                     <input type="text" pInputText placeholder="Адреса зовнішнього посилання ....." [(ngModel)]="Page.title" size="64" required="true" (change)="changePage(Page.id, Page.title, 'title')" />                                              
@@ -102,3 +103,4 @@
 </div>       
 
 
+<app-preference-page (clickDialog)="_Dialog()" [Page_id]="current_Page_id" [is_showDialog]="preference_show"></app-preference-page>  

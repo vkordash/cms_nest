@@ -215,7 +215,7 @@ export class SiteService {
       }
 /*******************************            Slider  */      
       getDataSliders(id_menu : number, offset : number, limit : number, tag? : string): Observable<any> {    
-        let x = this.http.get<any>(this.url_nest+"/slider/?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
+        let x = this.http.get<any>(this.url_nest+"/slider/?id_menu="+id_menu+"&offset="+offset+"&limit="+limit+"&search="+tag);
         return x;
       }
 
@@ -224,7 +224,7 @@ export class SiteService {
       }
 
       addItemSlider(id_menu:number):Observable<any>{
-        let x = this.http.get<any>(this.url+"/slider/add?id_menu="+id_menu);
+        let x = this.http.get<any>(this.url_nest+"/slider/add?id_menu="+id_menu);
         return x;         
     }
 /*******************************            Banners  */

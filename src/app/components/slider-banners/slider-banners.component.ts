@@ -25,6 +25,9 @@ export class SliderBannersComponent implements OnInit {
 
   refresh=false;
 
+  preference_show: boolean = false; 
+  current_Page_id : number = 0;
+
   constructor(private route: ActivatedRoute, private router: Router, private siteService : SiteService) { 
     
     
@@ -128,6 +131,15 @@ export class SliderBannersComponent implements OnInit {
 
   _Reload(){    
     //this. getTitPhoto();
+  }
+
+  pref_page(page_id : number){
+    this.current_Page_id=page_id;
+    this.preference_show = true;
+  }
+
+  _Dialog(){    
+    this.preference_show=false;
   }
 
   openPage (event:any,page_id:number){
