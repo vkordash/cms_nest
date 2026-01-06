@@ -369,6 +369,15 @@ export class SiteService {
         return x;         
       }
 
+      getComponent(id:number):Observable<any>{
+
+        const params = new HttpParams();
+        //const headers = this.getHeader();
+
+        let x = this.http.get<any>(this.url_nest+"/component/item?id="+id);
+        return x;         
+      }
+
       registerUser(userDetails: User):Observable<any>{
         const body = { email:'test@test.ua', password: '111111' };
         console.log(userDetails);

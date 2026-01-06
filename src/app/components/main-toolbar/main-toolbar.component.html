@@ -1,0 +1,28 @@
+    <div class="flex">
+        <div class="p-2">
+            <input type="text" pInputText [disabled]="true" />
+            <p-button 
+                class="p-2"
+                icon="pi pi-search" 
+                label="Пошук"
+                [disabled]="true"> 
+            </p-button>         
+        </div>
+        <div class="p-2">
+            <p-button 
+                class="p-2"
+                icon="pi pi-external-link"
+                title="Перейти на сторінку"
+                (click)="gotoPage()"
+                > 
+            </p-button>            
+            <p-button 
+                *ngIf="Component.show_pref==1"
+                class="p-2"
+                icon="pi pi-cog" 
+                (click)="pref();"  
+                title="Налаштування користувача"
+                > 
+            </p-button>
+        </div>
+    </div>        
