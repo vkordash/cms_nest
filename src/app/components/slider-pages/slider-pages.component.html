@@ -23,10 +23,10 @@
     [totalRecords]="totalRecords"
     > 
         <ng-template let-Page pTemplate="gridItem"> 
-            <div class="grid col-12 m-2 listitem">
+            <div class="grid col-12 m-2 listitem bg-gray-300">
                 <div class="grid w-full ml-4 mr-4">
                     <div class="col-4 flex align-items-center justify-content-center">
-                        <img *ngIf="Page.photo"  src="{{Page.photo.src}}" class="title-img">                    
+                        <img *ngIf="Page.photo_src"  src="http://mena.cg.gov.ua/{{Page.photo_src}}" class="title-img">                    
                     </div>
                     <div class="col-8">
                         <div class="text-center p-3 border-round-sm ">
@@ -59,25 +59,25 @@
                                     <!--<p-button icon="pi pi-trash"  title="Оновити" (onClick)="delItemSlider(Page.id)"></p-button> -->
                                 </div>
                             </div>
-                            <!-- <div  class="flex align-items-center p-2">
+                            <div  class="flex align-items-center p-2">
                                 <div>
-                                    Ширина зображення:  <input type="text" pInputText [(ngModel)]="Page.photo.width" type="number" size="4" min="0" max="680" (change)="changePhoto(Page.id, Page.photo.width, 'width')"/>  px                                            
+                                    Альтернативний текст  <input type="text" pInputText [(ngModel)]="Page.photo_alt" (change)="changePage(Page.id, Page.photo_alt, 'photo_alt')"/>                                           
                                 </div> 
                                 <div class="ml-5">
-                                    Висота зображення: <input type="text" pInputText [(ngModel)]="Page.photo.height" type="number" size="4" min="0" max="680" (change)="changePhoto(Page.id, Page.photo.height, 'height')"/> px                                             
+                                   Титульний текст зображення: <input type="text" pInputText [(ngModel)]="Page.photo_title"  (change)="changePage(Page.id, Page.photo_title, 'photo_title')"/>                                             
                                 </div>
-                            </div>-->
+                            </div>
                             <div  class="flex align-items-center  p-2">
                                 <div >
-                                    <input type="text" pInputText placeholder="Адреса зовнішнього посилання ....." [(ngModel)]="Page.title" size="64" required="true" (change)="changePage(Page.id, Page.title, 'title')" />                                              
+                                    <input type="text" pInputText placeholder="Адреса зовнішнього посилання ....." [(ngModel)]="Page.link_frame" size="64" required="true" (change)="changePage(Page.id, Page.link_frame, 'link_frame')" />                                              
                                 </div>
                                 <div class="ml-5">
                                     <p-checkbox 
                                         [binary]="true" 
-                                        name="activ"                   
-                                        [(ngModel)]="Page.activ"  
+                                        name="new_window"                   
+                                        [(ngModel)]="Page.new_window"  
                                         label='Відкрти в новому вікні'
-                                        (onChange)="changePage(Page.id, Page.activ, 'activ')" > 
+                                        (onChange)="changePage(Page.id, Page.new_window, 'new_window')" > 
                                     </p-checkbox>                
                                 </div>
                             </div>

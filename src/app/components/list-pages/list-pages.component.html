@@ -6,6 +6,9 @@
   <div class="flex align-items-center justify-content-center ml-5">
       <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="getListPage()"></p-button>
   </div>
+  <div  class="flex align-items-center justify-content-center ml-5">
+    <input type="text" pInputText placeholder="текст для пошуку ....." [(ngModel)]="search" size="64" required="true" (change)="newSearch()" />                                              
+  </div>
   <div class="flex align-items-center gap-5 justify-content-center ml-auto" >
       Всього записів: {{totalRecords}}
   </div>

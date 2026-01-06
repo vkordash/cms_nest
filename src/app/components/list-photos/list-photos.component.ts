@@ -42,17 +42,18 @@ export class ListPhotosComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {      
       if (params['id'] != this.id) {
-        this.getMenuItem();     
         this.totalRecords==0;    
         this.id = params['id'];
         this.tp = params['typ'];
+        this.getMenuItem();             
       } 
       
       if (params['offset'])
         this.offset = params['offset']*1;
       if (params['search'])
         this.search = params['search'];
-          
+
+      console.log( this.id);    
     });
   }
 
@@ -68,12 +69,12 @@ export class ListPhotosComponent implements OnInit {
     let s = this.siteService.getMenuItem(this.id).subscribe(tmenu => {             
         this.Menu = tmenu;
        // console.log(this.Menu);
-       if (this.totalRecords==0) {
+       //if (this.totalRecords==0) {
           this.getCountPhotos();
-        }
-        else {
+        /*}
+        else {*/
           this.getListPhotos();       
-        }            
+        //}            
         s.unsubscribe(); 
     }); 
   }
@@ -107,21 +108,24 @@ export class ListPhotosComponent implements OnInit {
     this.router.navigate(['/page'],{queryParams: params});    
   }
 
-  changePage(page_id:number, val:any, name:string){
+  changePhoto(id:number, val:any, name:string){
     console.log(val);
-    console.log(page_id);
+    console.log(id);
     console.log(name);
-    let s = this.siteService.updatePhoto(page_id,name,val).subscribe(dataUpdatePage => {             
+    let s = this.siteService.updatePhoto(id,name,val).subscribe(dataUpdatePage => {             
       console.log(dataUpdatePage);       
       s.unsubscribe(); 
   }); 
   }
 
-  pref_page(page_id : number){
+  /*pref_page(page_id : number){
     this.current_Page_id=page_id;
     this.preference_show = true;
-  }
+  }*/
 
+  delete(id : number){
+    console.log(id);
+  }
  /* addTitPhoto(page_id:number){
     let s = this.siteService.addTitPhoto(page_id).subscribe(dataUpdatePage => {             
         console.log(dataUpdatePage);       
@@ -164,5 +168,9 @@ export class ListPhotosComponent implements OnInit {
       console.log(item);  
       s.unsubscribe(); 
     }); 
+  }
+  
+  newSearch (){
+
   }
 }

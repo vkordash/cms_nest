@@ -79,22 +79,14 @@ export class SliderPagesComponent implements OnInit {
     }); 
   }
 
-  changePage(page_id:number, val:any, name:string){
+  changePage(id:number, val:any, name:string){
     console.log(val);
-    console.log(page_id);
-    console.log(name);
-    if (name == 'width' || name == 'heigth') {
-      let s = this.siteService.updatePhoto(page_id,name,val).subscribe(dataUpdatePage => {             
-        console.log(dataUpdatePage);       
-        s.unsubscribe(); 
-      }); 
-    }
-    else {
-      let s = this.siteService.updatePage(page_id,name,val).subscribe(dataUpdatePage => {             
-        console.log(dataUpdatePage);       
-        s.unsubscribe(); 
-      }); 
-    }
+    console.log(id);
+    console.log(name);    
+    let s = this.siteService.updatePage(id,name,val).subscribe(dataUpdatePage => {             
+      console.log(dataUpdatePage);       
+      s.unsubscribe(); 
+    });     
   }
 
   onLazyLoad($event:any){

@@ -57,7 +57,7 @@ export class ListPagesComponent implements OnInit {
   }
 
   getCountPages (){
-    let s = this.siteService.getCountPages(this.id).subscribe(data => { 
+    let s = this.siteService.getCountPages(this.id, this.search).subscribe(data => { 
       this.totalRecords = data.cnt;  
       this.getListPage();        
       s.unsubscribe(); 
@@ -161,5 +161,10 @@ export class ListPagesComponent implements OnInit {
       console.log(item);  
       s.unsubscribe(); 
     }); 
+  }
+
+  newSearch(){
+    this.totalRecords=0;
+    this.getMenuItem();
   }
 }

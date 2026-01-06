@@ -22,6 +22,9 @@ export class PageComponent implements OnInit {
   backSearch : string ='';
   showButtonBack : boolean = false;
    
+  preference_show: boolean = false; 
+  current_Page_id : number = 0;
+  Page:any={};
   
   constructor(private route: ActivatedRoute, private router: Router, private siteService : SiteService) { }
 
@@ -46,7 +49,7 @@ export class PageComponent implements OnInit {
   
   getDataPage (id:number, typ:number){
     let s = this.siteService.getPage(id,typ).subscribe(page => {             
-      //  this.Page = page;
+        this.Page = page;
         this.id=page.id;
         this.id_menu=page.id_menu;
         s.unsubscribe(); 
@@ -57,5 +60,51 @@ export class PageComponent implements OnInit {
    
 
     this.router.navigate([this.backUrl],{queryParams: {'id' : this.backId, 'typ' : this.backTyp, 'offset' : this.backOffset, 'search' : this.backSearch }});    
+  }
+
+  pref_page(id : number){
+    this.current_Page_id=id;
+    this.preference_show = true;
+  }
+
+ /* addTitPhoto(page_id:number){
+    let s = this.siteService.addTitPhoto(page_id).subscribe(dataUpdatePage => {             
+        console.log(dataUpdatePage);       
+        s.unsubscribe(); 
+    }); 
+  }*/
+
+  _Dialog(){    
+    this.preference_show=false;
+  }
+
+  _Reload(id:number){    
+    this.current_Page_id=id;
+    this. getTitPhoto();
+  }
+
+  getTitPhoto(){    
+      let s = this.siteService.getTitPhoto(this.current_Page_id).subscribe(titPhoto => {             
+        console.log(titPhoto);  
+        
+       /* this.ListPages.forEach(function(item:IListPages) {
+          if (item.id == titPhoto.id){
+            item.photo = titPhoto.src;  
+           }                  
+         });  */
+        
+        s.unsubscribe(); 
+      });
+    }
+
+  
+  changePage(page_id:number, val:any, name:string){
+    console.log(val);
+    console.log(page_id);
+    console.log(name);
+    let s = this.siteService.updatePage(page_id,name,val).subscribe(dataUpdatePage => {             
+      console.log(dataUpdatePage);       
+      s.unsubscribe(); 
+  }); 
   }
 }

@@ -179,9 +179,9 @@ export class SiteService {
         return x;         
       }
 
-      getCountPages(id_menu : number): Observable<any> {
+      getCountPages(id_menu : number, search:string=''): Observable<any> {
         //return this.http.get<number>(this.url+"/listpages/cnt?id_menu="+id_menu);
-        return this.http.get<number>(this.url_nest+"/page/cnt?id_menu="+id_menu);
+        return this.http.get<number>(this.url_nest+"/page/cnt?id_menu="+id_menu+'&search='+search);
       }
 
       getPrefPage(id_page:number):Observable<any>{
@@ -298,8 +298,8 @@ export class SiteService {
 
 
 
-      updatePhoto(id_page:number,name:string,val:any):Observable<any>{
-        let x = this.http.get<any>(this.url+"/photo/upd?id_page="+id_page+"&name="+name+"&val="+val);
+      updatePhoto(id:number,name:string,val:any):Observable<any>{
+        let x = this.http.get<any>(this.url_nest+"/photo/upd?id="+id+"&name="+name+"&val="+val);
         return x;         
       }
 
