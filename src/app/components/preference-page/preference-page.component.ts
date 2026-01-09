@@ -80,7 +80,6 @@ export class PreferencePageComponent implements OnInit {
     getListPhotoCollection(){
       let s = this.siteService.getListPhotoCollection().subscribe(Data => {  
           this.PhotoCollections = Data; 
-          console.log(Data);         
           s.unsubscribe(); 
       }); 
     }

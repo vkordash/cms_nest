@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SiteService } from '../../http.service';
 import { Router } from '@angular/router';
-import { ItemMenu, IListPages } from '../../type';
+import { IListPages } from '../../type';
 
 
 @Component({
@@ -14,7 +14,6 @@ import { ItemMenu, IListPages } from '../../type';
 export class ListPagesComponent implements OnInit {
 
   ListPages : IListPages[] = [];
-  Menu?: ItemMenu;
   
   id       : number = 0; 
   tp       : number = 0;  
@@ -22,17 +21,13 @@ export class ListPagesComponent implements OnInit {
   totalRecords : number = 0;
   offset : number = 0;    
   limit : number = 10;
-  search : any = '';
+  search : string = '';
 
   checked : boolean = true;  
   
-  defaultDate = new Date();
-  valuesChips: string[] = [];
-
   visible: boolean = false;
   preference_show: boolean = false; 
   current_Page_id : number = 0;
-  refresh=false;
   
   constructor(private route: ActivatedRoute, private router: Router, private siteService : SiteService) { 
     
@@ -42,136 +37,88 @@ export class ListPagesComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {  
       if (params['id'] != this.id) {
-        this.getMenuItem();     
         this.totalRecords==0;    
         this.id = params['id'];
         this.tp = params['typ'];
+        this.offset = Number(params['offset']) || 0;
+        this.search = params['search'] || '';
+        this.loadData();
       } 
-      
-      if (params['offset'])
-        this.offset = params['offset']*1;
-      if (params['search'])
-        this.search = params['search'];
-      
     });
   }
 
-  getCountPages (){
-    let s = this.siteService.getCountPages(this.id, this.search).subscribe(data => { 
-      console.log('getCountPages');          
-      console.log(data);  
-      this.totalRecords = data.cnt;  
-      this.getListPage();        
-      s.unsubscribe(); 
-    }); 
-  }
-  
-  getMenuItem(): void {
-    let s = this.siteService.getMenuItem(this.id).subscribe(Data => {   
-      console.log('getMenuItem');          
-      console.log(Data);          
-        this.Menu = Data;
-       // console.log(this.Menu);
-       if (this.totalRecords==0) {
-          this.getCountPages();
-        }
-        else {
-          this.getListPage();       
-        }            
-        s.unsubscribe(); 
-    }); 
-  }
 
-  getListPage(): void {    
-    let s = this.siteService.getListPages(this.id, this.offset, this.limit, this.search).subscribe(Data => {
-      console.log('getListPage');          
-      console.log(Data);  
-      
-      Data.forEach(function(item:IListPages) {
+  loadData(): void {    
+    let s = this.siteService.getListPages(this.id, this.offset, this.limit, this.search).subscribe(ResData => {
+      this.totalRecords= ResData.total;
+      ResData.data.forEach(function(item:IListPages) {
         item.date = new Date(item.date);              
-      });
-      
-        this.ListPages = Data;
-        console.log(this.ListPages);
-        this.refresh=false;       
+      });      
+        this.ListPages = ResData.data;
         s.unsubscribe(); 
     }); 
   }
 
-  onLazyLoad($event:any){
-    console.log($event);
-    this.offset=$event.first;
-    this.getListPage();
-  }
 
   openPage (event:any,page_id:number){
-    console.log(event);
     let backUrl='list-pages';
     let backId = this.id;
     let backTyp= this.tp;
     let backOffset = this.offset;
     let backSearch = this.search;
-    var params : any = {'id':page_id,'typ':'page','backUrl':backUrl, 'backId':backId, 'backTyp':backTyp, 'backOffset':backOffset, 'backSearch':backSearch};
+    var params : any = {
+      'id':page_id,
+      'typ':'page',
+      'backUrl':backUrl, 
+      'backId':backId, 
+      'backTyp':backTyp, 
+      'backOffset':backOffset, 
+      'backSearch':backSearch
+    };
     this.router.navigate(['/page'],{queryParams: params});    
   }
 
-  changePage(page_id:number, val:any, name:string){
-    console.log(val);
-    console.log(page_id);
-    console.log(name);
+  onPageChange(event: any) {    
+    this.offset = event.first;
+    this.loadData();
+  }
+
+  updatePage(page_id:number, val:any, name:string){
     let s = this.siteService.updatePage(page_id,name,val).subscribe(dataUpdatePage => {             
       console.log(dataUpdatePage);       
       s.unsubscribe(); 
-  }); 
+    }); 
   }
 
   pref_page(page_id : number){
     this.current_Page_id=page_id;
     this.preference_show = true;
   }
-
- /* addTitPhoto(page_id:number){
-    let s = this.siteService.addTitPhoto(page_id).subscribe(dataUpdatePage => {             
-        console.log(dataUpdatePage);       
-        s.unsubscribe(); 
-    }); 
-  }*/
-
   _Dialog(){    
     this.preference_show=false;
   }
 
   _Reload(id:number){    
-    this.current_Page_id=id;
-    this. getTitPhoto();
-  }
-
-  getTitPhoto(){    
-    let s = this.siteService.getTitPhoto(this.current_Page_id).subscribe(titPhoto => {             
-      console.log(titPhoto);  
-      
-      this.ListPages.forEach(function(item:IListPages) {
-        if (item.id == titPhoto.id){
-          item.photo = titPhoto.src;  
-         }                  
-       });  
-      
-      s.unsubscribe(); 
-    });
+//    this.current_Page_id=id;
   }
 
   addItem(){
-    console.log('addItemPage');
     let s = this.siteService.addItemPage(this.id).subscribe(item => { 
       this.offset=0;
-      this.getListPage();            
-      console.log(item);  
+      this.search='';
+      this.loadData();            
       s.unsubscribe(); 
     }); 
   }
 
+  clearSearch(){
+    this.search='';
+    this.newSearch();
+  }
+
   newSearch(){
     this.totalRecords=0;
-    this.getMenuItem();
+    this.offset=0;    
+    this.loadData();
   }
 }

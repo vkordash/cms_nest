@@ -100,7 +100,6 @@ export class PreferenceUserComponent implements OnInit {
   }
 
   onShow() {
-    console.log(this.Menu_id);
     this.getUser();
     this.getPerson();
     //this.getOrg();
@@ -143,56 +142,25 @@ export class PreferenceUserComponent implements OnInit {
 
   getPreferUser(){
     let s = this.siteService.getPreferUser().subscribe(data => { 
-      console.log(data);           
       this.UserPreference = data;        
       s.unsubscribe();  
     }); 
   }
 
   changeData(val: any, name: string ){
-    console.log(name);
-    console.log(val);
     let s = this.siteService.updatePreferUser(name,val).subscribe(data => {             
-      //this.UserPreference = data;        
       s.unsubscribe();  
     }); 
   }
 
   changeEmployee(val: any, name: string ) {
-    console.log(name);
-    console.log(val);
     let s = this.siteService.updateEmployee(name,val).subscribe(data => {             
-      //this.UserPreference = data;        
       s.unsubscribe();  
     }); 
   }
 
   _Reload(id:number){    
-    console.log(id);
-  //  this.current_Page_id=id;
-  //  this. getTitPhoto();
   }
-
-/*  get f(): { [key: string]: AbstractControl } {
-    return this.userForm.controls;
-  }
-
-  onReset(): void {
-    this.submitted = false;
-    this.userForm.reset();
-  }
-
-  onSubmit() {
-
-    this.submitted = true;
-    if (this.userForm.invalid) {
-      return;
-    }
-    console.log(this.userForm.value);
-    let s = this.siteService.updateUser(this.userForm.value).subscribe(data => {                       
-      s.unsubscribe();         
-    }); 
-  }*/
 
   onCancel(){
 

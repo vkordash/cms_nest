@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SiteService } from '../../http.service';
 import { Router } from '@angular/router';
 
-import { ItemMenu, IListPages } from '../../type';
+import { IListPages } from '../../type';
 
 @Component({
   selector: 'app-slider-pages',
@@ -12,8 +12,7 @@ import { ItemMenu, IListPages } from '../../type';
 })
 export class SliderPagesComponent implements OnInit {
 
- ListPages : IListPages[] = [];
-  Menu?: ItemMenu;
+ ListSliders : IListPages[] = [];
   
   id       : number = 0; 
   tp       : number = 0;  
@@ -35,76 +34,42 @@ export class SliderPagesComponent implements OnInit {
   
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {      
-      this.id = params['id'];
-      this.tp = params['typ'];
-
-      this.getMenuItem();     
+      if (params['id'] != this.id) {
+        this.totalRecords==0;    
+        this.id = params['id'];
+        this.tp = params['typ'];
+        this.offset = Number(params['offset']) || 0;
+        this.search = params['search'] || '';
+        this.loadData();
+      }    
     });
   }
 
   
-  getMenuItem(): void {
-    let s = this.siteService.getMenuItem(this.id).subscribe(tmenu => {             
-        this.Menu = tmenu[0];
-       // console.log(this.Menu);
-        if (this.totalRecords==0) {
-          this.getCountPages();
-        }
-        else {
-          this.getListPage();       
-        }
-        s.unsubscribe(); 
+  loadData(): void {    
+    let s = this.siteService.getDataSliders(this.id, this.offset, this.limit, this.search).subscribe(ResData => { 
+      this.totalRecords= ResData.total;
+      ResData.data.forEach(function(item:IListPages) {
+        item.date = new Date(item.date);              
+      });      
+        this.ListSliders = ResData.data;
+        s.unsubscribe();
     }); 
   }
 
-  getCountPages (){
-    let s = this.siteService.getCountSliders(this.id).subscribe(data=> { 
-      this.totalRecords = data.cnt;  
-      this.getListPage();        
-      s.unsubscribe(); 
-    }); 
-  }
-
-  getListPage(): void {    
-    let s = this.siteService.getDataSliders(this.id, this.offset, this.limit, this.search).subscribe(dataListPages => { 
-      dataListPages.forEach(function(item:IListPages) {       
-        item.date = new Date(item.date);               
-
-      });
-      
-        this.ListPages = dataListPages;
-        console.log(this.ListPages);
-        this.refresh=false;       
-        s.unsubscribe(); 
-    }); 
-  }
-
-  changePage(id:number, val:any, name:string){
-    console.log(val);
-    console.log(id);
-    console.log(name);    
+  updateSlider(id:number, val:any, name:string){
     let s = this.siteService.updatePage(id,name,val).subscribe(dataUpdatePage => {             
       console.log(dataUpdatePage);       
       s.unsubscribe(); 
     });     
   }
 
-  onLazyLoad($event:any){
+  onPhotoChange($event:any){
     console.log($event);
     this.offset=$event.first;
-    this.getListPage();
+    this.loadData();
   }
   
-  changePhoto(page_id:number, val:any, name:string){
-    console.log(val);
-    console.log(page_id);
-    console.log(name);
-    let s = this.siteService.updatePhoto(page_id,name,val).subscribe(dataUpdatePage => {             
-      console.log(dataUpdatePage);       
-      s.unsubscribe(); 
-    }); 
-  }
-
   addItem(){
     console.log('addItemSlider');
     let s = this.siteService.addItemSlider(this.id).subscribe(item => {             
@@ -141,7 +106,27 @@ export class SliderPagesComponent implements OnInit {
     let backTyp= this.tp;
     let backOffset = this.offset;
     let backSearch = this.search;
-    var params : any = {'id':page_id,'typ':'page','backUrl':backUrl, 'backId':backId, 'backTyp':backTyp, 'backOffset':backOffset, 'backSearch':backSearch};
+    var params : any = {
+      'id':page_id,
+      'typ':'page',
+      'backUrl':backUrl, 
+      'backId':backId, 
+      'backTyp':backTyp, 
+      'backOffset':backOffset, 
+      'backSearch':backSearch
+    };
     this.router.navigate(['/page'],{queryParams: params});    
+  }
+
+  
+  clearSearch(){
+    this.search='';
+    this.newSearch();
+  }
+
+  newSearch(){
+    this.totalRecords=0;
+    this.offset=0;    
+    this.loadData();
   }
 }

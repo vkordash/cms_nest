@@ -40,9 +40,6 @@ export class PageComponent implements OnInit {
       this.backTyp = params['backTyp']; 
       this.backOffset = params['backOffset']; 
       this.backSearch = params['backSearch'];
-
-
-     // console.log(this.showButtonBack);
      this.getDataPage(_id, this.tp);     
     });
   }
@@ -57,8 +54,10 @@ export class PageComponent implements OnInit {
   }
 
   BackToList(){
-   
-
+    console.log(this.backOffset);
+    console.log(this.backSearch);
+    console.log(this.backTyp);
+    console.log(this.backId);
     this.router.navigate([this.backUrl],{queryParams: {'id' : this.backId, 'typ' : this.backTyp, 'offset' : this.backOffset, 'search' : this.backSearch }});    
   }
 
@@ -67,12 +66,6 @@ export class PageComponent implements OnInit {
     this.preference_show = true;
   }
 
- /* addTitPhoto(page_id:number){
-    let s = this.siteService.addTitPhoto(page_id).subscribe(dataUpdatePage => {             
-        console.log(dataUpdatePage);       
-        s.unsubscribe(); 
-    }); 
-  }*/
 
   _Dialog(){    
     this.preference_show=false;
@@ -85,25 +78,13 @@ export class PageComponent implements OnInit {
 
   getTitPhoto(){    
       let s = this.siteService.getTitPhoto(this.current_Page_id).subscribe(titPhoto => {             
-        console.log(titPhoto);  
-        
-       /* this.ListPages.forEach(function(item:IListPages) {
-          if (item.id == titPhoto.id){
-            item.photo = titPhoto.src;  
-           }                  
-         });  */
-        
         s.unsubscribe(); 
       });
     }
 
   
   changePage(page_id:number, val:any, name:string){
-    console.log(val);
-    console.log(page_id);
-    console.log(name);
     let s = this.siteService.updatePage(page_id,name,val).subscribe(dataUpdatePage => {             
-      console.log(dataUpdatePage);       
       s.unsubscribe(); 
   }); 
   }

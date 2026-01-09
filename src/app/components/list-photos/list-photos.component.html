@@ -1,14 +1,15 @@
-<h3>{{Menu?.name}}</h3>
+<app-menu-header [id_menu]="id"></app-menu-header>
 <div class="grid w-full m-2 p-2">
   <div class="flex align-items-center justify-content-center ">
       <!--<p-button icon="pi pi-plus"  title="Добавити" (onClick)="addItem()"></p-button>  -->
-      <app-single-upload-file (reload)="__Reload(id)" [id]="id" [id_component]="8"></app-single-upload-file>            
+      <app-single-upload-file (reload)="__Reload(id)" [id]="id" [id_component]="9"></app-single-upload-file>            
   </div>
   <div class="flex align-items-center justify-content-center ml-5">
-      <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="getListPhotos()"></p-button>
+      <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="loadData()"></p-button>
   </div>
   <div class="flex align-items-center justify-content-center ml-5">
-    <input type="text" pInputText placeholder="текст для пошуку ....." [(ngModel)]="search" size="64" required="true" (change)="newSearch()" />                                              
+    <input type="text" pInputText placeholder="текст для пошуку ....." [(ngModel)]="search" size="64" required="true" (change)="newSearch()" />
+    <p-button icon="pi pi-times"  title="Оновити" (onClick)="clearSearch()"></p-button>                                              
   </div>
   <div class="flex align-items-center gap-5 justify-content-center ml-auto" >
       Всього записів: {{totalRecords}}
@@ -22,26 +23,27 @@
       [rows]="12" 
       filterBy="name"
       layout="grid"
-      [lazy]="true" 
-      (onLazyLoad)="onLazyLoad($event)"
+      [lazy]="true"
+      [first]="offset" 
+      (onLazyLoad)="onPhotoChange($event)"
       [totalRecords]="totalRecords" 
       > 
       <ng-template let-Photo pTemplate="gridItem"> 
         <div class="grid col-12 m-2 bg-gray-300">           
           <div class="col-4 flex-column align-items-center justify-content-center">              
-            <img src="http://mena.cg.gov.ua/{{Photo.photo_src}}" class="title-img">                               
+            <img src="{{Photo.photo_src}}" class="title-img">                               
           </div>
           <div class="col-8 flex-column">                            
             <div class="flex justify-content-between">
               <div class="flex gap-2 m-1">
-                  <input type="text" title='Порядковий номер' pInputText [(ngModel)]="Photo.pn" type="number" min="0" max="1999" (change)="changePhoto(Photo.id, Photo.pn, 'pn')"/>
+                  <input type="text" title='Порядковий номер' pInputText [(ngModel)]="Photo.pn" type="number" min="0" max="1999" (change)="updatePhoto(Photo.id, Photo.pn, 'pn')"/>
                   <p-checkbox 
                     [binary]="true" 
                     name="activ"                   
                     [(ngModel)]="Photo.activ"  
                     label='Активна'
                     title="Фото відображається на сайті" 
-                    (onChange)="changePhoto(Photo.id, Photo.activ, 'activ')" >
+                    (onChange)="updatePhoto(Photo.id, Photo.activ, 'activ')" >
                     </p-checkbox>
                 </div>
                 <div class="flex">
@@ -66,7 +68,7 @@
                 size="64" 
                 required="true" 
                 title="Адреса зовнішнього посилання"
-                (change)="changePhoto(Photo.id, Photo.routerlink, 'routerlink')" 
+                (change)="updatePhoto(Photo.id, Photo.routerlink, 'routerlink')" 
               />
               <p-checkbox 
                 [binary]="true" 
@@ -74,7 +76,7 @@
                 [(ngModel)]="Photo.new_window"  
                 label='Відкривати в новому вікні' 
                 title="Відкривати посилання в новому вікні"
-                (onChange)="changePhoto(Photo.id, Photo.new_window, 'new_window')" >
+                (onChange)="updatePhoto(Photo.id, Photo.new_window, 'new_window')" >
               </p-checkbox>                                              
             </div>
             <div class="m-1">
@@ -86,7 +88,7 @@
                 [(ngModel)]="Photo.photo_alt" 
                 required="true" 
                 class="w-full"
-                (change)="changePhoto(Photo.id, Photo.photo_alt, 'photo_alt')" 
+                (change)="updatePhoto(Photo.id, Photo.photo_alt, 'photo_alt')" 
               />                            
             </div> 
             <div class="m-1">
@@ -95,7 +97,7 @@
                 pInputTextarea 
                 title="Титульний текст фото"
                 [(ngModel)]="Photo.photo_title"
-                (change)="changePhoto(Photo.id, Photo.photo_title, 'photo_title')">
+                (change)="updatePhoto(Photo.id, Photo.photo_title, 'photo_title')">
               </textarea>                  
             </div>
             <div class="flex  gap-2 m-1">
@@ -107,7 +109,7 @@
                 required="true" 
                 class="w-full"
                 title="Автор фото"
-                (change)="changePhoto(Photo.id, Photo.author, 'author')" 
+                (change)="updatePhoto(Photo.id, Photo.author, 'author')" 
               />
               <p-checkbox 
                 [binary]="true" 
@@ -115,7 +117,7 @@
                 [(ngModel)]="Photo.show_author"  
                 label='Показувати автора' 
                 title="Показувати автора фото"
-                (onChange)="changePhoto(Photo.id, Photo.show_author, 'show_author')" >
+                (onChange)="updatePhoto(Photo.id, Photo.show_author, 'show_author')" >
                 </p-checkbox> 
             </div>                                             
           </div>

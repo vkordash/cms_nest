@@ -21,7 +21,6 @@ export class MainToolbarComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {  
       this.params = params;    
-    //  console.log(params);
       this.getItem();
     });
   }

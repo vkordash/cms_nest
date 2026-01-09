@@ -41,60 +41,32 @@ export class ListPhotosComponent implements OnInit {
   
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {      
-      if (params['id'] != this.id) {
+       if (params['id'] != this.id) {
         this.totalRecords==0;    
         this.id = params['id'];
         this.tp = params['typ'];
-        this.getMenuItem();             
-      } 
-      
-      if (params['offset'])
-        this.offset = params['offset']*1;
-      if (params['search'])
-        this.search = params['search'];
-
-      console.log( this.id);    
+        this.offset = Number(params['offset']) || 0;
+        this.search = params['search'] || '';
+        this.loadData();
+      }   
     });
   }
 
-  getCountPhotos (){
-    let s = this.siteService.getCountPhotos(this.id).subscribe(data => { 
-      this.totalRecords = data.cnt;  
-      this.getListPhotos();        
-      s.unsubscribe(); 
-    }); 
-  }
-  
-  getMenuItem(): void {
-    let s = this.siteService.getMenuItem(this.id).subscribe(tmenu => {             
-        this.Menu = tmenu;
-       // console.log(this.Menu);
-       //if (this.totalRecords==0) {
-          this.getCountPhotos();
-        /*}
-        else {*/
-          this.getListPhotos();       
-        //}            
-        s.unsubscribe(); 
-    }); 
+
+  loadData(): void {    
+    let s = this.siteService.getListPhotos(this.id, this.offset, this.limit, this.search).subscribe(ResData => {
+          this.totalRecords= ResData.total;
+          ResData.data.forEach(function(item:IListPhotos) {
+          //  item.date = new Date(item.date);              
+          });      
+            this.ListPhotos = ResData.data;
+            s.unsubscribe(); 
+        }); 
   }
 
-  getListPhotos(): void {    
-    let s = this.siteService.getListPhotos(this.id, this.offset, this.limit, this.search).subscribe(dataListPages => { 
-      dataListPages.forEach(function(item:IListPhotos) {
-      });
-      
-        this.ListPhotos = dataListPages;
-        console.log(this.ListPhotos);
-        this.refresh=false;       
-        s.unsubscribe(); 
-    }); 
-  }
-
-  onLazyLoad($event:any){
-    console.log($event);
-    this.offset=$event.first;
-    this.getListPhotos();
+  onPhotoChange(event: any) {    
+    this.offset = event.first;
+    this.loadData();
   }
 
   openPage (event:any,page_id:number){
@@ -108,10 +80,7 @@ export class ListPhotosComponent implements OnInit {
     this.router.navigate(['/page'],{queryParams: params});    
   }
 
-  changePhoto(id:number, val:any, name:string){
-    console.log(val);
-    console.log(id);
-    console.log(name);
+  updatePhoto(id:number, val:any, name:string){
     let s = this.siteService.updatePhoto(id,name,val).subscribe(dataUpdatePage => {             
       console.log(dataUpdatePage);       
       s.unsubscribe(); 
@@ -164,13 +133,20 @@ export class ListPhotosComponent implements OnInit {
     console.log('addItemPage');
     let s = this.siteService.addItemPhoto(this.id).subscribe(item => { 
       this.offset=0;
-      this.getListPhotos();            
+      this.loadData();            
       console.log(item);  
       s.unsubscribe(); 
     }); 
   }
   
-  newSearch (){
+  clearSearch(){
+    this.search='';
+    this.newSearch();
+  }
 
+  newSearch(){
+    this.totalRecords=0;
+    this.offset=0;    
+    this.loadData();
   }
 }

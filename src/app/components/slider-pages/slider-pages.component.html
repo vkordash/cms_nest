@@ -1,11 +1,19 @@
-<h3>{{Menu?.name}}</h3>
+<app-menu-header [id_menu]="id"></app-menu-header>
 <div class="grid w-full m-2 p-2">
     <div class="flex align-items-center justify-content-center ">
         <p-button icon="pi pi-plus"  title="Добавити" (onClick)="addItem()"></p-button>       
     </div>
     <div class="flex align-items-center justify-content-center ml-5">
-        <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="getListPage()"></p-button>
+        <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="loadData()"></p-button>
     </div>
+    <div  class="flex align-items-center justify-content-center ml-5">
+    <input type="text" 
+      pInputText placeholder="текст для пошуку ....." 
+      [(ngModel)]="search" 
+      size="64" 
+      (change)="newSearch()" />
+      <p-button icon="pi pi-times"  title="Оновити" (onClick)="clearSearch()"></p-button>                                              
+  </div>
     <div class="flex align-items-center gap-5 justify-content-center ml-auto" >
         Всього записів: {{totalRecords}}
     </div>
@@ -13,20 +21,21 @@
 <div class="card"> 
     <p-dataView
     #dv 
-    [value]="ListPages" 
+    [value]="ListSliders" 
     [paginator]="true" 
     [rows]="10" 
     filterBy="name"
     layout="grid"
-    [lazy]="true" 
-    (onLazyLoad)="onLazyLoad($event)"
+    [lazy]="true"
+    [first]="offset" 
+    (onLazyLoad)="onPhotoChange($event)"
     [totalRecords]="totalRecords"
     > 
         <ng-template let-Page pTemplate="gridItem"> 
             <div class="grid col-12 m-2 listitem bg-gray-300">
                 <div class="grid w-full ml-4 mr-4">
                     <div class="col-4 flex align-items-center justify-content-center">
-                        <img *ngIf="Page.photo_src"  src="http://mena.cg.gov.ua/{{Page.photo_src}}" class="title-img">                    
+                        <img *ngIf="Page.photo_src"  src="{{Page.photo_src}}" class="title-img">                    
                     </div>
                     <div class="col-8">
                         <div class="text-center p-3 border-round-sm ">
@@ -36,7 +45,7 @@
                             <div class="flex align-items-center  p-2">
                                 <div>
                                     <div>
-                                        Порядковий номер: <input type="text" pInputText [(ngModel)]="Page.pn" type="number" size="2" min="0" max="99" (change)="changePage(Page.id, Page.pn, 'pn')"/>
+                                        Порядковий номер: <input type="text" pInputText [(ngModel)]="Page.pn" type="number" size="2" min="0" max="99" (change)="updateSlider(Page.id, Page.pn, 'pn')"/>
                                     </div>                                     
                                 </div> 
                                 <div  class="ml-5"> 
@@ -45,7 +54,7 @@
                                         name="activ"                   
                                         [(ngModel)]="Page.activ"  
                                         label='Активна'
-                                        (onChange)="changePage(Page.id, Page.activ, 'activ')" > 
+                                        (onChange)="updateSlider(Page.id, Page.activ, 'activ')" > 
                                     </p-checkbox>                                                  
                                 </div>
                                 <div class="ml-5">
@@ -61,15 +70,15 @@
                             </div>
                             <div  class="flex align-items-center p-2">
                                 <div>
-                                    Альтернативний текст  <input type="text" pInputText [(ngModel)]="Page.photo_alt" (change)="changePage(Page.id, Page.photo_alt, 'photo_alt')"/>                                           
+                                    Альтернативний текст  <input type="text" pInputText [(ngModel)]="Page.photo_alt" (change)="updateSlider(Page.id, Page.photo_alt, 'photo_alt')"/>                                           
                                 </div> 
                                 <div class="ml-5">
-                                   Титульний текст зображення: <input type="text" pInputText [(ngModel)]="Page.photo_title"  (change)="changePage(Page.id, Page.photo_title, 'photo_title')"/>                                             
+                                   Титульний текст зображення: <input type="text" pInputText [(ngModel)]="Page.photo_title"  (change)="updateSlider(Page.id, Page.photo_title, 'photo_title')"/>                                             
                                 </div>
                             </div>
                             <div  class="flex align-items-center  p-2">
                                 <div >
-                                    <input type="text" pInputText placeholder="Адреса зовнішнього посилання ....." [(ngModel)]="Page.link_frame" size="64" required="true" (change)="changePage(Page.id, Page.link_frame, 'link_frame')" />                                              
+                                    <input type="text" pInputText placeholder="Адреса зовнішнього посилання ....." [(ngModel)]="Page.link_frame" size="64" required="true" (change)="updateSlider(Page.id, Page.link_frame, 'link_frame')" />                                              
                                 </div>
                                 <div class="ml-5">
                                     <p-checkbox 
@@ -77,7 +86,7 @@
                                         name="new_window"                   
                                         [(ngModel)]="Page.new_window"  
                                         label='Відкрти в новому вікні'
-                                        (onChange)="changePage(Page.id, Page.new_window, 'new_window')" > 
+                                        (onChange)="updateSlider(Page.id, Page.new_window, 'new_window')" > 
                                     </p-checkbox>                
                                 </div>
                             </div>
@@ -93,7 +102,7 @@
                             rows="3"
                             pInputTextarea 
                             [(ngModel)]="Page.head"
-                            (change)="changePage(Page.id, Page.head, 'head')">
+                            (change)="updateSlider(Page.id, Page.head, 'head')">
                         </textarea> 
                     </div>
                 </div>

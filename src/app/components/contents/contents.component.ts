@@ -40,7 +40,6 @@ export class ContentsComponent implements OnInit {
     let s = this.siteService.getSubMenu(this.id).subscribe(menu => {             
       this.SubMenu = [...menu];
       console.log(this.Menu);
-     // if (this.SubMenu.length==0) this.SubMenu = [{'id':0,'name':'Субменю відсутнє',icon:'',children:[]}];
       s.unsubscribe(); 
     });   
   }

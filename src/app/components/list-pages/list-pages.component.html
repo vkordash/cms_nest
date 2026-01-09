@@ -1,13 +1,18 @@
-<h3>{{Menu?.name}}</h3>
+<app-menu-header [id_menu]="id"></app-menu-header>
 <div class="grid w-full m-2 p-2">
   <div class="flex align-items-center justify-content-center ">
       <p-button icon="pi pi-plus"  title="Добавити" (onClick)="addItem()"></p-button>       
   </div>
   <div class="flex align-items-center justify-content-center ml-5">
-      <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="getListPage()"></p-button>
+      <p-button icon="pi pi-refresh"  title="Оновити" (onClick)="loadData()"></p-button>
   </div>
   <div  class="flex align-items-center justify-content-center ml-5">
-    <input type="text" pInputText placeholder="текст для пошуку ....." [(ngModel)]="search" size="64" required="true" (change)="newSearch()" />                                              
+    <input type="text" 
+      pInputText placeholder="текст для пошуку ....." 
+      [(ngModel)]="search" 
+      size="64" 
+      (change)="newSearch()" />
+      <p-button icon="pi pi-times"  title="Оновити" (onClick)="clearSearch()"></p-button>                                              
   </div>
   <div class="flex align-items-center gap-5 justify-content-center ml-auto" >
       Всього записів: {{totalRecords}}
@@ -21,8 +26,9 @@
       [rows]="10" 
       filterBy="name"
       layout="grid"
-      [lazy]="true" 
-      (onLazyLoad)="onLazyLoad($event)"
+      [lazy]="true"
+      [first]="offset"
+      (onLazyLoad)="onPageChange($event)"
       [totalRecords]="totalRecords" 
       > 
       <ng-template let-Page pTemplate="gridItem"> 
@@ -32,10 +38,10 @@
               <p-calendar [showTime]="true" 
               [(ngModel)]="Page.date"
               dateFormat="dd-mm-yy"
-              (onSelect)="changePage(Page.id, Page.date, 'date')"> </p-calendar>                   
+              (onSelect)="updatePage(Page.id, Page.date, 'date')"> </p-calendar>                   
             </div>
             <div class="page-title flex align-items-center justify-content-center m-2">                   
-              <div><input type="text" title='Довжина видимого тексту' pInputText [(ngModel)]="Page.v_len" type="number" min="0" max="1999" (change)="changePage(Page.id, Page.v_len, 'v_len')"/></div>
+              <div><input type="text" title='Довжина видимого тексту' pInputText [(ngModel)]="Page.v_len" type="number" min="0" max="1999" (change)="updatePage(Page.id, Page.v_len, 'v_len')"/></div>
             </div> 
             <div class="page-title flex align-items-center justify-content-center m-2"> 
               <p-checkbox 
@@ -43,7 +49,7 @@
                   name="activ"                   
                   [(ngModel)]="Page.activ"  
                   label='Активна'
-                  (onChange)="changePage(Page.id, Page.activ, 'activ')" > 
+                  (onChange)="updatePage(Page.id, Page.activ, 'activ')" > 
               </p-checkbox>                                                 
             </div>
 
@@ -53,7 +59,7 @@
                   name="show_dt"                   
                   [(ngModel)]="Page.show_dt"
                   label='Показувати дату'
-                  (onChange)="changePage(Page.id, Page.show_dt, 'show_dt')" > 
+                  (onChange)="updatePage(Page.id, Page.show_dt, 'show_dt')" > 
               </p-checkbox>                     
             </div>
             <div class="page-title flex align-items-center justify-content-center m-2"> 
@@ -62,7 +68,7 @@
                   name="rss"                   
                   [(ngModel)]="Page.rss"  
                   label='RSS'
-                  (onChange)="changePage(Page.id, Page.rss, 'rss')"  >
+                  (onChange)="updatePage(Page.id, Page.rss, 'rss')"  >
               </p-checkbox>                     
             </div>
 
@@ -72,7 +78,7 @@
                   name="soc_nets"                   
                   [(ngModel)]="Page.soc_nets"  
                   label='Соціальні мережі' 
-                  (onChange)="changePage(Page.id, Page.soc_nets, 'soc_nets')" >
+                  (onChange)="updatePage(Page.id, Page.soc_nets, 'soc_nets')" >
               </p-checkbox>                   
             </div>
 
@@ -93,7 +99,7 @@
                 rows="2"
                 pInputTextarea 
                 [(ngModel)]="Page.head"
-                (change)="changePage(Page.id, Page.head, 'head')">
+                (change)="updatePage(Page.id, Page.head, 'head')">
               </textarea>                  
             </div>                          
             <div  (click)="openPage($event, Page.id)">

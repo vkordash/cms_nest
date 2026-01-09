@@ -26,19 +26,18 @@ export class BannersComponent implements OnInit {
   getMenuItem(): void {
     let s = this.siteService.getMenuItem(this.id).subscribe(tmenu => {             
         this.Menu = tmenu;
-       // console.log(this.Menu);
-        this.getBanners();       
+        this.getData();       
         s.unsubscribe(); 
     }); 
   }
 
-  getBanners(): void {    
-    let s = this.siteService.getBanners().subscribe(dataListPages => { 
-      dataListPages.forEach(function(item:IListPages) {
+  getData(): void {    
+    let s = this.siteService.getBanners().subscribe(Data => { 
+      Data.forEach(function(item:IListPages) {
         item.date = new Date(item.date);          
       });
       
-        this.ListPages = dataListPages;
+        this.ListPages = Data;
         console.log(this.ListPages);
         s.unsubscribe(); 
     }); 
