@@ -58,6 +58,8 @@ export class ListPagesComponent implements OnInit {
 
   getCountPages (){
     let s = this.siteService.getCountPages(this.id, this.search).subscribe(data => { 
+      console.log('getCountPages');          
+      console.log(data);  
       this.totalRecords = data.cnt;  
       this.getListPage();        
       s.unsubscribe(); 
@@ -65,8 +67,10 @@ export class ListPagesComponent implements OnInit {
   }
   
   getMenuItem(): void {
-    let s = this.siteService.getMenuItem(this.id).subscribe(tmenu => {             
-        this.Menu = tmenu;
+    let s = this.siteService.getMenuItem(this.id).subscribe(Data => {   
+      console.log('getMenuItem');          
+      console.log(Data);          
+        this.Menu = Data;
        // console.log(this.Menu);
        if (this.totalRecords==0) {
           this.getCountPages();
@@ -79,12 +83,15 @@ export class ListPagesComponent implements OnInit {
   }
 
   getListPage(): void {    
-    let s = this.siteService.getListPages(this.id, this.offset, this.limit, this.search).subscribe(dataListPages => { 
-      dataListPages.forEach(function(item:IListPages) {
+    let s = this.siteService.getListPages(this.id, this.offset, this.limit, this.search).subscribe(Data => {
+      console.log('getListPage');          
+      console.log(Data);  
+      
+      Data.forEach(function(item:IListPages) {
         item.date = new Date(item.date);              
       });
       
-        this.ListPages = dataListPages;
+        this.ListPages = Data;
         console.log(this.ListPages);
         this.refresh=false;       
         s.unsubscribe(); 

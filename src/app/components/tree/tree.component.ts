@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api'; 
 import { SiteService } from '../../http.service';
 import { IMenu, ItemMenu } from '../../type';
+import { TokenService } from '../../services/token.service'
 
 @Component({
   selector: 'app-tree',
@@ -28,13 +29,21 @@ export class TreeComponent implements OnInit {
     visible: boolean = false;
     show_hide: boolean = false;
     openNode: string[]=[];
-
+    
     id : number = 0;
     tp : number = 0;
     search : boolean = false;
+    role: any = {};
 
 
-    constructor(private siteService : SiteService,private router: Router, private messageService: MessageService, private route: ActivatedRoute) { }
+    constructor(
+        private siteService : SiteService,
+        private router: Router, 
+        private messageService: MessageService, 
+        private route: ActivatedRoute,
+        private tokenService:TokenService
+    )
+    { }
 
     ngOnInit() { 
         
@@ -48,7 +57,10 @@ export class TreeComponent implements OnInit {
 
         this.getMenu();
 
-   
+        
+        this.role = this.tokenService.getRole();
+        console.log(this.role);
+
         this.toolsMenu = [ 
             { 
                 label: "Новий",

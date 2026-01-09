@@ -124,7 +124,7 @@
             <div  (click)="openPage($event, Page.id)">
               <div class="product-grid-item-content"> 
                 <img *ngIf="Page.photo"  src="{{Page.photo}}" class="title-img">
-                {{Page.text}}
+                <div [innerHTML]="Page.text | safehtml"></div>
               </div>
             </div>                      
         </div>        

@@ -59,7 +59,14 @@ export class LoginComponent implements OnInit {
                   if (prop && prop.status == 1)  
                   {     
                       this.authService.setToken(prop.token);
-                      this.isLoggedForm.emit({stat:true, org_name:prop.org_name, user_name : prop.user_name, id_user : prop.id_user, id_org: prop.id_org, url_site: prop.url_site });
+                      this.isLoggedForm.emit({
+                        stat:true, 
+                        org_name:prop.org_name, 
+                        user_name : prop.user_name, 
+                        id_user : prop.id_user, 
+                        id_org: prop.id_org, 
+                        url_site: prop.url_site 
+                      });
                       this.router.navigate(['/welcome']);  // куда после логина
                   }
                   else

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ITitPhoto } from './type';
 import { User } from './interfaces/User';
-import { AppConfigService } from './services/app-config.service';
+//import { AppConfigService } from './services/app-config.service';
 
 @Injectable({
   providedIn : "root"
@@ -11,7 +11,7 @@ import { AppConfigService } from './services/app-config.service';
 
 
 export class SiteService {
-      private url = this.config.apiBaseUrl;        //  url базы данных (без путей)   
+  //    private url = this.config.apiBaseUrl;        //  url базы данных (без путей)   
       private url_nest_local = "http://192.168.77.253:20202"   
       private url_nest = "http://10.8.0.1:30303"  
       private name_token = 'token';
@@ -21,7 +21,9 @@ export class SiteService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': `Bearer `})       
       };
       
-      constructor(private http: HttpClient, private config: AppConfigService) {
+    /*  constructor(private http: HttpClient, private config: AppConfigService) {
+      }*/
+      constructor(private http: HttpClient) {
       }
 
       getUrlServer () : String {
@@ -41,7 +43,6 @@ export class SiteService {
       }
 
       deleteMenuItem(id : number): Observable<any[]> {
-        //let x = this.http.get<any[]>(this.url+"/menu/delete?id="+id);
         let x = this.http.get<any[]>(this.url_nest+"/menu/del?id="+id);
         return x;
       }
@@ -52,7 +53,7 @@ export class SiteService {
       }
 
       newItemMenu(id : number): Observable<any[]> {
-        let x = this.http.get<any[]>(this.url+"/menu/add?id_menu="+id);
+        let x = this.http.get<any[]>(this.url_nest+"/menu/add?id_menu="+id);
         return x;
       }
 
@@ -67,7 +68,7 @@ export class SiteService {
       }
 
       getNodeExpand (id : number, id_component : number): Observable<any> {
-        let x = this.http.get<number[]>(this.url+"/menu/getNodeExpand?id="+id+"&id_component="+id_component);
+        let x = this.http.get<number[]>(this.url_nest+"/menu/getNodeExpand?id="+id+"&id_component="+id_component);
         return x;
       }
 
@@ -87,7 +88,6 @@ export class SiteService {
       }
       
       addMenu(id : number): Observable<any[]> {
-        //let x = this.http.get<any[]>(this.url+"/menu/add?id="+id);
         let x = this.http.get<any[]>(this.url_nest+"/menu/add?id="+id);
         return x;
       }
@@ -169,7 +169,6 @@ export class SiteService {
       }
 /*******************************           List Page  */
       getListPages(id_menu : number, offset : number, limit : number, tag? : string): Observable<any> {    
-        //let x = this.http.get<any>(this.url+"/listpages/?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
         let x = this.http.get<any>(this.url_nest+"/page/list?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
         return x;
       }
@@ -180,7 +179,6 @@ export class SiteService {
       }
 
       getCountPages(id_menu : number, search:string=''): Observable<any> {
-        //return this.http.get<number>(this.url+"/listpages/cnt?id_menu="+id_menu);
         return this.http.get<number>(this.url_nest+"/page/cnt?id_menu="+id_menu+'&search='+search);
       }
 
@@ -191,15 +189,11 @@ export class SiteService {
 /*******************************           List Video  */
 
       getListVideos(id_menu : number, offset : number, limit : number,  tag? : string): Observable<any> {  
-        
-        
-      //  let x = this.http.get<any>(this.url_nest+"/listvideos/?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
         let x = this.http.get<any>(this.url_nest+"/video/?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
         return x;
       }
 
       getCountVideos(id_menu : number): Observable<any> {
-      //  return this.http.get<number>(this.url_nest+"/listvideos/cnt?id_menu="+id_menu);
         return this.http.get<any>(this.url_nest+"/video/cnt?id_menu="+id_menu);
       }
 
@@ -209,7 +203,6 @@ export class SiteService {
       }
 
       updateItemVideo(id_page:number,name:string,val:any):Observable<any>{
-        //let x = this.http.get<any>(this.url+"/listvideos/update?id="+id_page+"&name="+name+"&val="+val);
         let x = this.http.get<any>(this.url_nest+"/video/upd?id="+id_page+"&name="+name+"&val="+val);
         return x;         
       }
@@ -235,7 +228,6 @@ export class SiteService {
 
 /*******************************            Tags  */     
       getTags(id:number,id_component:number):Observable<any>{
-        //let x = this.http.get<any>(this.url+"/tags/?id="+id+"&id_component="+id_component);
         let x = this.http.get<any>(this.url_nest+"/chips/?id="+id+"&id_component="+id_component);
         return x;         
       }
@@ -256,7 +248,6 @@ export class SiteService {
       }
 /*******************************            TitPhoto  */      
       getTitPhoto(id : number): Observable<any> {
-      //  let x = this.http.get<any[]>(this.url+"/titphoto/get?id="+id);
         let x = this.http.get<any>(this.url_nest+"/titul-photo/?id="+id);
         return x;
       }
@@ -273,7 +264,6 @@ export class SiteService {
 
       /*******************************            ListPhotos  */      
       getListPhotos(id_menu : number, offset : number, limit : number, tag? : string): Observable<any> {    
-        //let x = this.http.get<any>(this.url+"/listphotos/?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
         let x = this.http.get<any>(this.url_nest+"/photo/list?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
         return x;
       }
@@ -305,60 +295,15 @@ export class SiteService {
 
 /*******************************           List Docs  */
       getListDocs(id_menu : number, limit : number, offset : number, tag? : string): Observable<any> {  
-        let x = this.http.get<any>(this.url+"/listdocs/?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
+        let x = this.http.get<any>(this.url_nest+"/listdocs/?id_menu="+id_menu+"&limit="+limit+"&offset="+offset+"&search="+tag);
         return x;
       }
       
       getCountDocs(id_menu : number): Observable<number> {
-        return this.http.get<number>(this.url+"/listdocs/cnt?id_menu="+id_menu);
+        return this.http.get<number>(this.url_nest+"/listdocs/cnt?id_menu="+id_menu);
       }
 
       
-      
-
-/*
-      getListDocs(params: {
-          id_menu: number;
-          start: number;
-          size: number;
-          sortField?: string;
-          sortOrder?: number;
-          filters?: { [key: string]: string; }})
-      
-        {
-        
-         let httpParams = new HttpParams()
-            .set('id_menu', params.start)
-            .set('offset', params.start)
-            .set('limit', params.size);
-
-        if (params.sortField) {
-          httpParams = httpParams
-            .set('sortField', params.sortField)
-            .set('sortOrder', params.sortOrder?.toString() || '1');
-        }
-
-        /*if (params.filters) {
-          for (const key in params.filters) {
-            if (params.filters[key]) {
-              httpParams = httpParams.set(`filter_${key}`, params.filters[key]);
-            }
-          }
-        }*/
-
-     /*   return this.http.get<any>(this.url+"/listdocs/", { params: httpParams });
-                
-      }   
-
-      getCountDocs(params: {id_menu: number;})
-      {
-          let httpParams = new HttpParams()
-            .set('id_menu', params.id_menu);
-          
-          return this.http.get<number>(this.url+"/listdocs/cnt", {params:httpParams});
-      }*/
-
-     
 /******************************************************************************************/      
       getListComponents():Observable<any>{
 
@@ -381,13 +326,11 @@ export class SiteService {
       registerUser(userDetails: User):Observable<any>{
         const body = { email:'test@test.ua', password: '111111' };
         console.log(userDetails);
-        //let x = this.http.post<any>(this.url+"/register",userDetails); 
-        let x = this.http.post<any>(this.url+"/auth/register",body); 
+        let x = this.http.post<any>(this.url_nest_local+"/auth/register",body); 
         return x;         
       }
      
       login(login: string, passwd : string, db: string):Observable<any>{
-        //let lurl = this.url+"/auth/login";
         let url = this.url_nest+"/auth/login";        
         /*const params = new HttpParams()         
          .set('login', login)
@@ -452,8 +395,7 @@ export class SiteService {
         } 
 
         getPreferOrg():Observable<any>{               
-          return this.http.get<number>(this.url_nest_local+"/prefer/org");           
-          //return this.http.get<number>(this.url_nest_local+"/pref/?group=org");           
+          return this.http.get<number>(this.url_nest_local+"/prefer/org");                          
         }
 
         updatePreferOrg(name:string,val:any):Observable<any>{               
@@ -470,11 +412,11 @@ export class SiteService {
         }
 
         checkDataBase(db:string):Observable<any>{               
-          return this.http.get<string>(this.url+"/checkdatabase/?name="+db);           
+          return this.http.get<string>(this.url_nest_local+"/checkdatabase/?name="+db);           
         }
 
         updateUser(userDetails: any):Observable<any>{  
          // const body = { email:'test@test.ua', password: '111111' };             
-          return this.http.post<any>(this.url+"/employee/update ",userDetails);           
+          return this.http.post<any>(this.url_nest_local+"/employee/update ",userDetails);           
         }
 }

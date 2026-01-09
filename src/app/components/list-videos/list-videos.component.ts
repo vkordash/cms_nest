@@ -4,6 +4,7 @@ import { SiteService } from '../../http.service';
 import { Router } from '@angular/router';
 
 import { ItemMenu, IListVideos } from '../../type';
+import { TokenService } from '../../services/token.service'
 
 
 @Component({
@@ -28,24 +29,35 @@ export class ListVideosComponent implements OnInit {
   preference_show: boolean = false; 
   current_Page_id : number = 0;
   refresh=false;
+  access: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private siteService : SiteService) { 
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private siteService : SiteService,
+    private tokenService:TokenService
+  ) { 
+
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {      
-      if (params['id'] != this.id) {
-        this.getMenuItem();     
-        this.totalRecords==0;    
-        this.id = params['id'];
-        this.tp = params['typ'];
-      } 
-      
-      if (params['offset'])
-        this.offset = params['offset']*1;
-      if (params['search'])
-        this.search = params['search'];    
-    });
+    this.access = this.tokenService.getAccess('video');
+    if (this.access) {
+      this.route.queryParams.subscribe(params => {  
+        
+        if (params['id'] != this.id) {
+          this.getMenuItem();     
+          this.totalRecords==0;    
+          this.id = params['id'];
+          this.tp = params['typ'];
+        } 
+        
+        if (params['offset'])
+          this.offset = params['offset']*1;
+        if (params['search'])
+          this.search = params['search'];    
+      });
+    }
   }
 
   getCountPages (){
