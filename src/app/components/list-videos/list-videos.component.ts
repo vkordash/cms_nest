@@ -57,11 +57,12 @@ export class ListVideosComponent implements OnInit {
 
   loadData(): void {    
     let s = this.siteService.getListVideos(this.id,  this.offset, this.limit, this.search).subscribe(ResData => { 
+      console.log(ResData);
       this.totalRecords= ResData.total;
             ResData.data.forEach(function(item:IListVideos) {
               item.date = new Date(item.date);              
             });      
-              this.ListVideos = ResData.data;
+            this.ListVideos = ResData.data;
         s.unsubscribe(); 
     }); 
   }
